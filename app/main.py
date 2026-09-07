@@ -13,6 +13,8 @@ from fastapi.responses import JSONResponse
 
 from app import __version__
 from app.api.health import router as health_router
+from app.api.progress import router as progress_router
+from app.api.sessions import router as sessions_router
 from app.config.settings import ConfigurationError, Profile, get_settings
 
 logger = logging.getLogger("toki")
@@ -70,6 +72,8 @@ def create_app() -> FastAPI:
 
     # Register API routers
     app.include_router(health_router)
+    app.include_router(progress_router)
+    app.include_router(sessions_router)
 
     @app.get("/", tags=["Root"])
     async def root() -> dict[str, str]:

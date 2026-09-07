@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** TODO
+- **Status:** DONE
 - **Priority:** P0
 - **Epic:** E2 — Deterministic Core
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity (commit b3ea649)
 - **Dependencies:** TASK-003, TASK-004, TASK-007
 - **Requirement IDs:** FR-004, FR-005, DATA-002, DATA-004, API-006, SEC-004
 - **Architecture/ADR:** Versioned device protocol; durable acknowledged state; ADR-003, ADR-012
@@ -75,11 +75,11 @@ Network delivery may duplicate, reorder, delay, or lose messages. These conditio
 
 ## Acceptance Criteria
 
-- [ ] Duplicate/reordered/stale messages cannot advance state twice.
-- [ ] Resume starts from last durable acknowledged state after process restart.
-- [ ] One bounded resend is represented durably.
-- [ ] Conflict/replay outcomes are typed and observable.
-- [ ] Fault-matrix integration tests pass.
+- [x] Duplicate/reordered/stale messages cannot advance state twice.
+- [x] Resume starts from last durable acknowledged state after process restart.
+- [x] One bounded resend is represented durably.
+- [x] Conflict/replay outcomes are typed and observable.
+- [x] Fault-matrix integration tests pass.
 
 ## Risks
 
@@ -90,13 +90,15 @@ Network delivery may duplicate, reorder, delay, or lose messages. These conditio
 | Date (UTC) | Agent | Commit | Work / evidence |
 |---|---|---|---|
 | 2026-09-06 | Planning agent | — | Initial task created. |
+| 2026-09-07 | Antigravity | b3ea649 | Implemented ProtocolCursor model & Alembic migration 002, ProtocolRepository, ProtocolSequencer, ProtocolRecoveryManager, DeviceSimulator ACK helpers, documentation docs/device-protocol.md, and unit & fault matrix test suites (81/81 passed). |
 
 ## Handoff Notes
 
-- Current state: Awaiting dependencies.
-- Remaining work: Entire scope.
-- Exact next action: Write the delivery-fault truth table and expected durable cursor for each case.
+- Current state: Complete and verified.
+- Remaining work: None for TASK-008.
+- Exact next action: Proceed to TASK-009 ("Implement approved curriculum access") or TASK-006 ("Enforce CI and repository quality gates").
 
 ## Definition of Done
 
 DONE requires restart/fault tests, protocol docs, satisfied criteria, and no blocker.
+

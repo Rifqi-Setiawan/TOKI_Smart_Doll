@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "plan-101",
+  "session_id": "sess-987fcdeb-51a2-43f7-9876-543210987654",
+  "turn_id": "turn-001",
+  "pedagogical_act": "PRAISE",
+  "approved_text": "Hebat! Kamu benar, itu kucing.",
+  "spoken_text": "Hebat! Kamu benar, itu kucing.",
+  "audio_asset_id": "praise-kucing-01",
+  "provenance": {
+    "schema_version": "1.0",
+    "curriculum_version": "2026.1",
+    "module_id": "animals",
+    "activity_id": "act_sound_guess",
+    "template_id": "tpl_praise_correct"
+  },
+  "display": "HAPPY",
+  "gesture": "CELEBRATE",
+  "is_escalation": false,
+  "paraphrase_applied": false
+}

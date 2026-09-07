@@ -1,0 +1,63 @@
+{
+  "total_cases": 20,
+  "correct_predictions": 20,
+  "accuracy": 1.0,
+  "macro_f1": 1.0,
+  "precision_by_class": {
+    "CORRECT": 1.0,
+    "INCORRECT": 1.0,
+    "UNCERTAIN": 1.0,
+    "NO_RESPONSE": 1.0
+  },
+  "recall_by_class": {
+    "CORRECT": 1.0,
+    "INCORRECT": 1.0,
+    "UNCERTAIN": 1.0,
+    "NO_RESPONSE": 1.0
+  },
+  "f1_by_class": {
+    "CORRECT": 1.0,
+    "INCORRECT": 1.0,
+    "UNCERTAIN": 1.0,
+    "NO_RESPONSE": 1.0
+  },
+  "false_incorrect_count": 0,
+  "false_incorrect_on_uncertain_count": 0,
+  "confusion_matrix": {
+    "CORRECT": {
+      "CORRECT": 11,
+      "INCORRECT": 0,
+      "UNCERTAIN": 0,
+      "NO_RESPONSE": 0
+    },
+    "INCORRECT": {
+      "CORRECT": 0,
+      "INCORRECT": 2,
+      "UNCERTAIN": 0,
+      "NO_RESPONSE": 0
+    },
+    "UNCERTAIN": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "UNCERTAIN": 4,
+      "NO_RESPONSE": 0
+    },
+    "NO_RESPONSE": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "UNCERTAIN": 0,
+      "NO_RESPONSE": 3
+    }
+  },
+  "reason_code_counts": {
+    "EXACT_MATCH": 5,
+    "SYNONYM_MATCH": 3,
+    "PHONETIC_MATCH": 2,
+    "NORMALIZED_MATCH": 1,
+    "LOW_CONFIDENCE": 2,
+    "NO_SPEECH_DETECTED": 3,
+    "AUDIO_CORRUPTED": 2,
+    "EXPLICIT_MISMATCH": 2
+  },
+  "coverage_rate": 0.8
+}

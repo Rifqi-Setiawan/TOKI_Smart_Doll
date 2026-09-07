@@ -1,0 +1,65 @@
+{
+  "$defs": {
+    "EventType": {
+      "description": "Physical and interaction events originating from device.",
+      "enum": [
+        "AUDIO_START",
+        "AUDIO_END",
+        "BUTTON_PRESSED",
+        "WAKE_WORD_DETECTED",
+        "ERROR"
+      ],
+      "title": "EventType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Typed event emitted by device.",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "description": "Semantic contract schema version (API-001)",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "event_type": {
+      "$ref": "#/$defs/EventType"
+    },
+    "button_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Identifier of pressed button",
+      "title": "Button Id"
+    },
+    "error_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Hardware error code if error event",
+      "title": "Error Code"
+    },
+    "metadata": {
+      "description": "Event telemetry metadata",
+      "title": "Metadata",
+      "type": "object"
+    }
+  },
+  "required": [
+    "event_type"
+  ],
+  "title": "DeviceEvent",
+  "type": "object"
+}

@@ -1,0 +1,174 @@
+{
+  "$defs": {
+    "MasteryBand": {
+      "description": "Pedagogical mastery tiers based on verified learning evidence (ADR-011).",
+      "enum": [
+        "EXPLORING",
+        "DEVELOPING",
+        "PROFICIENT"
+      ],
+      "title": "MasteryBand",
+      "type": "string"
+    },
+    "SessionSummaryDTO": {
+      "additionalProperties": false,
+      "description": "Encouraging parent summary of a completed learning session (FR-016).",
+      "properties": {
+        "schema_version": {
+          "default": "1.0",
+          "description": "Semantic contract schema version (API-001)",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "session_id": {
+          "description": "Session identifier",
+          "title": "Session Id",
+          "type": "string"
+        },
+        "duration_minutes": {
+          "description": "Session active duration in minutes",
+          "minimum": 0,
+          "title": "Duration Minutes",
+          "type": "integer"
+        },
+        "completed_activities": {
+          "description": "Count of successfully finished activities",
+          "minimum": 0,
+          "title": "Completed Activities",
+          "type": "integer"
+        },
+        "skills_addressed": {
+          "description": "List of skill names practiced",
+          "items": {
+            "type": "string"
+          },
+          "title": "Skills Addressed",
+          "type": "array"
+        },
+        "parent_tip": {
+          "description": "Non-clinical home encouragement recommendation for parents",
+          "title": "Parent Tip",
+          "type": "string"
+        }
+      },
+      "required": [
+        "session_id",
+        "duration_minutes",
+        "completed_activities",
+        "parent_tip"
+      ],
+      "title": "SessionSummaryDTO",
+      "type": "object"
+    },
+    "SkillProgressDTO": {
+      "additionalProperties": false,
+      "description": "Non-clinical overview of skill exploration progress (FR-016, SEC-010).",
+      "properties": {
+        "schema_version": {
+          "default": "1.0",
+          "description": "Semantic contract schema version (API-001)",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "skill_id": {
+          "description": "Skill token",
+          "title": "Skill Id",
+          "type": "string"
+        },
+        "skill_name": {
+          "description": "Child-friendly skill title (e.g. 'Mengenal Anggota Tubuh')",
+          "title": "Skill Name",
+          "type": "string"
+        },
+        "mastery_band": {
+          "$ref": "#/$defs/MasteryBand",
+          "description": "Qualitative progression band"
+        },
+        "practice_count": {
+          "description": "Total turns practiced",
+          "minimum": 0,
+          "title": "Practice Count",
+          "type": "integer"
+        },
+        "recent_success_rate": {
+          "description": "Recent attempt success ratio [0.0 - 1.0]",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Recent Success Rate",
+          "type": "number"
+        }
+      },
+      "required": [
+        "skill_id",
+        "skill_name",
+        "mastery_band",
+        "practice_count",
+        "recent_success_rate"
+      ],
+      "title": "SkillProgressDTO",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Parent dashboard progress projection contract consumed by Flutter app (FR-016, DATA-008).",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "description": "Semantic contract schema version (API-001)",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "child_id": {
+      "description": "Pseudonymous child profile identifier (DATA-008)",
+      "title": "Child Id",
+      "type": "string"
+    },
+    "display_name": {
+      "description": "Pseudonymous first name or handle",
+      "title": "Display Name",
+      "type": "string"
+    },
+    "age_band": {
+      "description": "Developmental age band (e.g. '3-4 tahun')",
+      "title": "Age Band",
+      "type": "string"
+    },
+    "total_sessions_count": {
+      "description": "Total learning sessions",
+      "minimum": 0,
+      "title": "Total Sessions Count",
+      "type": "integer"
+    },
+    "total_activities_count": {
+      "description": "Total learning activities completed",
+      "minimum": 0,
+      "title": "Total Activities Count",
+      "type": "integer"
+    },
+    "skills": {
+      "description": "Progress breakdown per skill",
+      "items": {
+        "$ref": "#/$defs/SkillProgressDTO"
+      },
+      "title": "Skills",
+      "type": "array"
+    },
+    "recent_sessions": {
+      "description": "Chronological recent session summaries",
+      "items": {
+        "$ref": "#/$defs/SessionSummaryDTO"
+      },
+      "title": "Recent Sessions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "child_id",
+    "display_name",
+    "age_band",
+    "total_sessions_count",
+    "total_activities_count"
+  ],
+  "title": "ChildProgressDTO",
+  "type": "object"
+}

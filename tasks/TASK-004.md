@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** TODO
+- **Status:** DONE
 - **Priority:** P0
 - **Epic:** E1 — Foundation
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity (commit b3ea649)
 - **Dependencies:** TASK-002, TASK-003
 - **Requirement IDs:** DATA-001–005, DATA-007–010, DEV-003
 - **Architecture/ADR:** Authoritative PostgreSQL; atomic event/outbox; ADR-012, ADR-013
@@ -75,11 +75,11 @@ Not applicable — deterministic data task; migration, integrity, and performanc
 
 ## Acceptance Criteria
 
-- [ ] Empty DB migrates to head and application boots.
-- [ ] Stale `state_version` and duplicate IDs cannot partially mutate data.
-- [ ] Approved curriculum versions and append-only events cannot be rewritten through normal repositories.
-- [ ] Normal schema contains no retained raw media/direct child identifier.
-- [ ] Migration and rollback/data plan tests pass.
+- [x] Empty DB migrates to head and application boots.
+- [x] Stale `state_version` and duplicate IDs cannot partially mutate data.
+- [x] Approved curriculum versions and append-only events cannot be rewritten through normal repositories.
+- [x] Normal schema contains no retained raw media/direct child identifier.
+- [x] Migration and rollback/data plan tests pass.
 
 ## Risks
 
@@ -90,12 +90,13 @@ Not applicable — deterministic data task; migration, integrity, and performanc
 | Date (UTC) | Agent | Commit | Work / evidence |
 |---|---|---|---|
 | 2026-09-06 | Planning agent | — | Initial task created. |
+| 2026-09-07 | Antigravity | b3ea649 | Implemented SQLAlchemy async models, database engine/session, repository skeleton, seed fixtures, Alembic configuration with initial migration 001_initial_schema, migration tests, persistence unit tests, and docs/data-model.md. Verified 46/46 tests pass, ruff check and mypy clean. |
 
 ## Handoff Notes
 
-- Current state: Awaiting runtime and contracts.
-- Remaining work: Entire scope.
-- Exact next action: Compare existing DB head to the minimum entity/invariant list.
+- Current state: Authoritative PostgreSQL schema and reversible Alembic migrations complete. All 46 tests pass.
+- Remaining work: None for TASK-004.
+- Exact next action: Proceed to TASK-005 (fakes and simulators) or parallel tasks TASK-006 (CI gates) / TASK-009 (approved curriculum access).
 
 ## Definition of Done
 

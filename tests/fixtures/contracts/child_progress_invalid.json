@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "child_id": "child-c9f2",
+  "display_name": "Budi",
+  "age_band": "4-5 tahun",
+  "total_sessions_count": 5,
+  "total_activities_count": 12,
+  "skills": [],
+  "recent_sessions": [
+    {
+      "schema_version": "1.0",
+      "session_id": "sess-invalid",
+      "duration_minutes": 5,
+      "completed_activities": 1,
+      "skills_addressed": [],
+      "parent_tip": "Hasil diagnosis menunjukkan ananda mengalami gangguan speech delay."
+    }
+  ]
+}

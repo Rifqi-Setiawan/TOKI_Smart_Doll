@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** TODO
+- **Status:** DONE
 - **Priority:** P0
 - **Epic:** E2 — Deterministic Core
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity (commit b3ea649)
 - **Dependencies:** TASK-003, TASK-009
 - **Requirement IDs:** FR-008, FR-009, FR-010, AI-005, OBS-005
 - **Architecture/ADR:** Deterministic-first understanding; ADR-006
@@ -75,11 +75,11 @@ Provider confidence is evidence, not truth. The baseline must be fast, interpret
 
 ## Acceptance Criteria
 
-- [ ] Frozen fixtures reproduce expected assessment and explanation code.
-- [ ] False-incorrect count for low-confidence/no-speech/malformed inputs is zero.
-- [ ] Exact/common approved variants bypass model calls.
-- [ ] Results include policy/rule/content provenance.
-- [ ] Metric calculator output is recorded for the baseline fixture.
+- [x] Frozen fixtures reproduce expected assessment and explanation code.
+- [x] False-incorrect count for low-confidence/no-speech/malformed inputs is zero.
+- [x] Exact/common approved variants bypass model calls.
+- [x] Results include policy/rule/content provenance.
+- [x] Metric calculator output is recorded for the baseline fixture.
 
 ## Risks
 
@@ -90,12 +90,13 @@ Provider confidence is evidence, not truth. The baseline must be fast, interpret
 | Date (UTC) | Agent | Commit | Work / evidence |
 |---|---|---|---|
 | 2026-09-06 | Planning agent | — | Initial task created. |
+| 2026-09-07 | Antigravity | b3ea649 | Implemented Indonesian normalizer, DeterministicAssessor, evaluation metric calculator, 20 frozen labeled fixtures, baseline metric report, unit & property tests (25/25 passing). |
 
 ## Handoff Notes
 
-- Current state: Awaiting curriculum task.
-- Remaining work: Entire scope.
-- Exact next action: Freeze labeled examples and the uncertainty truth table before adding rules.
+- Current state: Fully implemented, tested, and validated.
+- Remaining work: None for TASK-010. Semantic resolver AI hook available for TASK-021.
+- Exact next action: Proceed to next eligible task in roadmap.
 
 ## Definition of Done
 

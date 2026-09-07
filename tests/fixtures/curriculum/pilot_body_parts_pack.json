@@ -1,0 +1,111 @@
+{
+  "version_token": "curriculum-pilot-v1.0",
+  "status": "APPROVED",
+  "description": "Modul 1: Mengenal Anggota Tubuh (PAUD 4-6 Tahun)",
+  "target_age_band": "4-6",
+  "reviewed_by": "dr_susanti_sp_a_paud_expert@toki.id",
+  "reviewed_at": "2026-09-01T10:00:00Z",
+  "skills": [
+    {
+      "skill_token": "body_parts",
+      "name": "Mengenal Anggota Tubuh",
+      "domain": "language",
+      "target_age_band": "4-6"
+    }
+  ],
+  "activities": [
+    {
+      "activity_token": "body_parts_mata",
+      "module": "body_parts",
+      "skill_token": "body_parts",
+      "difficulty": 1,
+      "prompt_text": "Coba sebutkan, bagian tubuh apa yang kita gunakan untuk melihat?",
+      "answer_spec": {
+        "exact_matches": ["mata"],
+        "synonyms": ["kedua mata", "biji mata", "netra"],
+        "phonetic_variations": ["matak", "matah"],
+        "case_sensitive": false
+      },
+      "hints": [
+        "Posisinya ada di wajah kita!",
+        "Ada dua, kanan dan kiri, untuk melihat pemandangan indah."
+      ],
+      "retry_prompt": "Ayo diingat lagi, yang kita pakai untuk melihat namanya apa ya?",
+      "audio_refs": {
+        "prompt_audio_id": "audio_prompt_mata_001",
+        "fallback_audio_id": "audio_fallback_mata_001",
+        "hint_audio_ids": ["audio_hint_mata_001", "audio_hint_mata_002"]
+      },
+      "review_notes": "Reviewed and verified for Indonesian PAUD vocabulary standards (dr. Susanti, Sp.A)."
+    },
+    {
+      "activity_token": "body_parts_hidung",
+      "module": "body_parts",
+      "skill_token": "body_parts",
+      "difficulty": 1,
+      "prompt_text": "Bagian tubuh apa yang kita gunakan untuk mencium bau harum makanan?",
+      "answer_spec": {
+        "exact_matches": ["hidung"],
+        "synonyms": ["lubang hidung"],
+        "phonetic_variations": ["idung", "hidong"],
+        "case_sensitive": false
+      },
+      "hints": [
+        "Letaknya di tengah-tengah wajah kita, di antara dua pipi!"
+      ],
+      "retry_prompt": "Yang dipakai untuk bernapas dan mencium aroma bunga apa namanya ya?",
+      "audio_refs": {
+        "prompt_audio_id": "audio_prompt_hidung_001",
+        "fallback_audio_id": "audio_fallback_hidung_001",
+        "hint_audio_ids": ["audio_hint_hidung_001"]
+      },
+      "review_notes": "Single-concept sensory identification for beginner level."
+    },
+    {
+      "activity_token": "body_parts_telinga",
+      "module": "body_parts",
+      "skill_token": "body_parts",
+      "difficulty": 2,
+      "prompt_text": "Kalau yang kita gunakan untuk mendengar suara musik atau burung berkicau, namanya apa?",
+      "answer_spec": {
+        "exact_matches": ["telinga", "kuping"],
+        "synonyms": ["daun telinga"],
+        "phonetic_variations": ["telingah", "kupieng"],
+        "case_sensitive": false
+      },
+      "hints": [
+        "Ada di samping kanan dan kiri kepala kita!"
+      ],
+      "retry_prompt": "Yang di samping kepala untuk mendengar suara namanya apa ya?",
+      "audio_refs": {
+        "prompt_audio_id": "audio_prompt_telinga_001",
+        "fallback_audio_id": "audio_fallback_telinga_001",
+        "hint_audio_ids": ["audio_hint_telinga_001"]
+      },
+      "review_notes": "Includes accepted colloquial synonym 'kuping' per PAUD natural speech guidelines."
+    },
+    {
+      "activity_token": "body_parts_mulut",
+      "module": "body_parts",
+      "skill_token": "body_parts",
+      "difficulty": 2,
+      "prompt_text": "Bagian tubuh yang kita gunakan untuk berbicara dan tersenyum apa ya?",
+      "answer_spec": {
+        "exact_matches": ["mulut"],
+        "synonyms": ["bibir"],
+        "phonetic_variations": ["mulu", "mulot"],
+        "case_sensitive": false
+      },
+      "hints": [
+        "Di dalamnya ada gigi putih dan lidah!"
+      ],
+      "retry_prompt": "Yang kita buka saat makan dan tersenyum manis namanya apa ya?",
+      "audio_refs": {
+        "prompt_audio_id": "audio_prompt_mulut_001",
+        "fallback_audio_id": "audio_fallback_mulut_001",
+        "hint_audio_ids": ["audio_hint_mulut_001"]
+      },
+      "review_notes": "Validated against speech-stimulation guidelines."
+    }
+  ]
+}

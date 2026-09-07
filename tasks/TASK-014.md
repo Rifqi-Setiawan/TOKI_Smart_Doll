@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** TODO
+- **Status:** IN_PROGRESS
 - **Priority:** P0
 - **Epic:** E2 — Deterministic Core
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity (commit b3ea649)
 - **Dependencies:** TASK-005, TASK-006, TASK-007, TASK-008, TASK-009, TASK-010, TASK-011, TASK-012, TASK-013
 - **Requirement IDs:** REL-005, DEV-002, EVAL-001
 - **Architecture/ADR:** One text/cached-audio activity; ADR-003, ADR-015

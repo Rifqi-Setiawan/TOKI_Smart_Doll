@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "child_id": "child-c9f2",
+  "display_name": "Budi",
+  "age_band": "4-5 tahun",
+  "total_sessions_count": 5,
+  "total_activities_count": 12,
+  "skills": [
+    {
+      "schema_version": "1.0",
+      "skill_id": "body_parts",
+      "skill_name": "Pengenalan Anggota Tubuh",
+      "mastery_band": "DEVELOPING",
+      "practice_count": 8,
+      "recent_success_rate": 0.75
+    }
+  ],
+  "recent_sessions": [
+    {
+      "schema_version": "1.0",
+      "session_id": "sess-987fcdeb-51a2-43f7-9876-543210987654",
+      "duration_minutes": 7,
+      "completed_activities": 2,
+      "skills_addressed": ["Pengenalan Anggota Tubuh"],
+      "parent_tip": "Ajak ananda menyebutkan nama jari saat membasuh tangan bersama di rumah."
+    }
+  ]
+}

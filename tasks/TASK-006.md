@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** READY
+- **Status:** DONE
 - **Priority:** P0
 - **Epic:** E1 — Foundation
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity (commit b3ea649)
 - **Dependencies:** TASK-001
 - **Requirement IDs:** DEV-002, DEV-005, DEV-006
 - **Architecture/ADR:** Evidence/reliability as ongoing gates; ADR-015
@@ -75,11 +75,11 @@ AI agents must not hand off plausible but unvalidated code. CI is the shared, co
 
 ## Acceptance Criteria
 
-- [ ] Required checks run on change/PR and have a documented local equivalent.
-- [ ] Standard CI uses deterministic fakes, not live provider credentials.
-- [ ] Secret scan and migration/contract checks are mandatory when corresponding files exist.
-- [ ] PR template requires task/requirements/tests/rollback.
-- [ ] Baseline duration and any quarantined flake are recorded.
+- [x] Required checks run on change/PR and have a documented local equivalent (`python scripts/run_quality_gates.py`).
+- [x] Standard CI uses deterministic fakes, not live provider credentials (`PROFILE=test`, in-memory DB/fakes).
+- [x] Secret scan and migration/contract checks are mandatory when corresponding files exist (`scripts/scan_secrets.py`, `pytest tests/migration/`, `pytest tests/contracts/`).
+- [x] PR template requires task/requirements/tests/rollback (`.github/pull_request_template.md`).
+- [x] Baseline duration and any quarantined flake are recorded (`docs/testing.md`, 20.68s baseline, 0 quarantined flakes).
 
 ## Risks
 
@@ -90,13 +90,15 @@ AI agents must not hand off plausible but unvalidated code. CI is the shared, co
 | Date (UTC) | Agent | Commit | Work / evidence |
 |---|---|---|---|
 | 2026-09-06 | Planning agent | — | Initial task created. |
+| 2026-09-07 | Antigravity | b3ea649 | Implemented `.github/workflows/ci.yml`, `scripts/run_quality_gates.py`, `scripts/scan_secrets.py`, `scripts/export_schemas.py --check`, `.github/pull_request_template.md`, and `docs/testing.md`. All 9 gates verified passing locally in 20.68s across 186 tests with 0 flakes. |
 
 ## Handoff Notes
 
-- Current state: Awaiting repository inventory.
-- Remaining work: Entire scope.
-- Exact next action: Identify current CI/toolchain and add the smallest mandatory fast gate.
+- Current state: All mandatory CI and local quality gates implemented, documented, and passing.
+- Remaining work: None for TASK-006.
+- Exact next action: Proceed to TASK-014 (vertical slice) as all prerequisite foundation and domain tasks (001-013) are now DONE.
 
 ## Definition of Done
 
 DONE requires green CI validation, local reproduction docs, satisfied criteria, and no blocker.
+

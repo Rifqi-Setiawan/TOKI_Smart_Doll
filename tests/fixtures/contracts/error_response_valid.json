@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "error_code": "INVALID_PAYLOAD",
+  "message": "Field 'seq' must be a positive integer",
+  "correlation_id": "corr-8832-ae",
+  "details": {
+    "field": "seq",
+    "received": -1
+  }
+}

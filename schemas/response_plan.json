@@ -1,0 +1,166 @@
+{
+  "$defs": {
+    "ContentProvenance": {
+      "additionalProperties": false,
+      "description": "Traceability metadata linking output to approved curriculum (FR-011, ADR-007).",
+      "properties": {
+        "schema_version": {
+          "default": "1.0",
+          "description": "Semantic contract schema version (API-001)",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "curriculum_version": {
+          "description": "Approved curriculum version",
+          "title": "Curriculum Version",
+          "type": "string"
+        },
+        "module_id": {
+          "description": "Curriculum module ID (e.g. 'family', 'animals')",
+          "title": "Module Id",
+          "type": "string"
+        },
+        "activity_id": {
+          "description": "Activity definition ID",
+          "title": "Activity Id",
+          "type": "string"
+        },
+        "template_id": {
+          "description": "Approved template phrase ID",
+          "title": "Template Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "curriculum_version",
+        "module_id",
+        "activity_id",
+        "template_id"
+      ],
+      "title": "ContentProvenance",
+      "type": "object"
+    },
+    "DisplayState": {
+      "description": "OLED/screen face expression enum.",
+      "enum": [
+        "IDLE",
+        "LISTENING",
+        "THINKING",
+        "SPEAKING",
+        "HAPPY",
+        "CURIOUS",
+        "ENCOURAGING"
+      ],
+      "title": "DisplayState",
+      "type": "string"
+    },
+    "GestureType": {
+      "description": "Servo/motor physical actuation enum.",
+      "enum": [
+        "NOD",
+        "WAVE",
+        "TILT_HEAD",
+        "CELEBRATE",
+        "RESET"
+      ],
+      "title": "GestureType",
+      "type": "string"
+    },
+    "PedagogicalAct": {
+      "description": "Categorization of communicative intent in learning interaction (FR-011).",
+      "enum": [
+        "PROMPT",
+        "PRAISE",
+        "CORRECTIVE_FEEDBACK",
+        "HINT",
+        "RETRY_PROMPT",
+        "ESCALATION",
+        "CLOSING"
+      ],
+      "title": "PedagogicalAct",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Deterministic plan for the child-facing spoken, visual, and physical feedback (FR-011).",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "description": "Semantic contract schema version (API-001)",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "plan_id": {
+      "description": "Unique response plan identifier",
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "session_id": {
+      "description": "Session correlation identifier",
+      "title": "Session Id",
+      "type": "string"
+    },
+    "turn_id": {
+      "description": "Turn correlation identifier",
+      "title": "Turn Id",
+      "type": "string"
+    },
+    "pedagogical_act": {
+      "$ref": "#/$defs/PedagogicalAct",
+      "description": "Type of learning feedback"
+    },
+    "approved_text": {
+      "description": "Approved baseline template text",
+      "title": "Approved Text",
+      "type": "string"
+    },
+    "spoken_text": {
+      "description": "Actual text to speak (approved template or verified paraphrase)",
+      "title": "Spoken Text",
+      "type": "string"
+    },
+    "audio_asset_id": {
+      "description": "Pre-generated audio asset fallback ID (ADR-009)",
+      "title": "Audio Asset Id",
+      "type": "string"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ContentProvenance",
+      "description": "Curriculum audit provenance"
+    },
+    "display": {
+      "$ref": "#/$defs/DisplayState",
+      "default": "SPEAKING",
+      "description": "Facial expression"
+    },
+    "gesture": {
+      "$ref": "#/$defs/GestureType",
+      "default": "NOD",
+      "description": "Physical movement"
+    },
+    "is_escalation": {
+      "default": false,
+      "description": "True if safety escalation triggered",
+      "title": "Is Escalation",
+      "type": "boolean"
+    },
+    "paraphrase_applied": {
+      "default": false,
+      "description": "True if bounded paraphraser modified text",
+      "title": "Paraphrase Applied",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "plan_id",
+    "session_id",
+    "turn_id",
+    "pedagogical_act",
+    "approved_text",
+    "spoken_text",
+    "audio_asset_id",
+    "provenance"
+  ],
+  "title": "ResponsePlan",
+  "type": "object"
+}

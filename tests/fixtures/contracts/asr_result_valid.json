@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "session_id": "sess-987fcdeb-51a2-43f7-9876-543210987654",
+  "turn_id": "turn-001",
+  "state_version": 2,
+  "status": "SUCCESS",
+  "transcript": "kucing",
+  "confidence": 0.94,
+  "language": "id-ID",
+  "duration_ms": 1250,
+  "latency_ms": 480.5,
+  "provider": "fake",
+  "model_version": "whisper-id-v1",
+  "is_final": true,
+  "error_message": null
+}

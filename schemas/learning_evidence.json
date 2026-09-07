@@ -1,0 +1,87 @@
+{
+  "$defs": {
+    "AssistanceLevel": {
+      "description": "Scaffolding tier utilized during the response turn.",
+      "enum": [
+        "INDEPENDENT",
+        "HINTED",
+        "ASSISTED"
+      ],
+      "title": "AssistanceLevel",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Verified learning interaction evidence emitted from a resolved turn (FR-014).",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "description": "Semantic contract schema version (API-001)",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "evidence_id": {
+      "description": "Unique learning evidence identifier",
+      "title": "Evidence Id",
+      "type": "string"
+    },
+    "session_id": {
+      "description": "Associated session ID",
+      "title": "Session Id",
+      "type": "string"
+    },
+    "turn_id": {
+      "description": "Associated turn ID",
+      "title": "Turn Id",
+      "type": "string"
+    },
+    "child_id": {
+      "description": "Pseudonymous child profile ID (DATA-008)",
+      "title": "Child Id",
+      "type": "string"
+    },
+    "skill_id": {
+      "description": "Curriculum skill token being exercised",
+      "title": "Skill Id",
+      "type": "string"
+    },
+    "activity_id": {
+      "description": "Activity definition token",
+      "title": "Activity Id",
+      "type": "string"
+    },
+    "is_successful": {
+      "description": "Whether the attempt demonstrated target skill",
+      "title": "Is Successful",
+      "type": "boolean"
+    },
+    "assistance_level": {
+      "$ref": "#/$defs/AssistanceLevel",
+      "description": "Level of scaffolding provided"
+    },
+    "policy_version": {
+      "default": "RULE-MASTERY-1.0",
+      "description": "Mastery rule set version (FR-015)",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "timestamp_ms": {
+      "description": "Evidence creation timestamp",
+      "title": "Timestamp Ms",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "session_id",
+    "turn_id",
+    "child_id",
+    "skill_id",
+    "activity_id",
+    "is_successful",
+    "assistance_level",
+    "timestamp_ms"
+  ],
+  "title": "LearningEvidence",
+  "type": "object"
+}

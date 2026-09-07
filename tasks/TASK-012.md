@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** TODO
+- **Status:** DONE
 - **Priority:** P0
 - **Epic:** E2 — Deterministic Core
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity (commit b3ea649)
 - **Dependencies:** TASK-004, TASK-007, TASK-010, TASK-011
 - **Requirement IDs:** FR-014, FR-015, DATA-004, DATA-005
 - **Architecture/ADR:** Atomic resolved-turn transaction; ADR-011, ADR-012
@@ -75,11 +75,11 @@ Parent progress and replay are trustworthy only if state, evidence, mastery, and
 
 ## Acceptance Criteria
 
-- [ ] All six resolved-turn records commit atomically or none do.
-- [ ] Replay creates zero duplicate attempts/mastery/events/outbox.
-- [ ] Mastery is transparent/versioned/reproducible and skips uncertain evidence.
-- [ ] Stale state cannot commit partial data.
-- [ ] Failure-injection transaction tests pass.
+- [x] All six resolved-turn records commit atomically or none do.
+- [x] Replay creates zero duplicate attempts/mastery/events/outbox.
+- [x] Mastery is transparent/versioned/reproducible and skips uncertain evidence.
+- [x] Stale state cannot commit partial data.
+- [x] Failure-injection transaction tests pass.
 
 ## Risks
 
@@ -90,13 +90,15 @@ Parent progress and replay are trustworthy only if state, evidence, mastery, and
 | Date (UTC) | Agent | Commit | Work / evidence |
 |---|---|---|---|
 | 2026-09-06 | Planning agent | — | Initial task created. |
+| 2026-09-07 | Antigravity | b3ea649 | Implemented `ResolvedTurnUnitOfWork` with nested transactional rollback and 6 artificial failure injection boundaries. Implemented pure, transparent `RuleBasedMasteryPolicy` with uncertainty guard (FR-009, FR-015, ADR-011). Verified replay idempotency (`message_id`), optimistic locking (`state_version`), payload equality for outbox/event, and 0 partial writes across failure injection matrix (`tests/integration/test_unit_of_work.py`). 173/173 tests pass; mypy and ruff 100% clean. |
 
 ## Handoff Notes
 
-- Current state: Awaiting deterministic components.
-- Remaining work: Entire scope.
-- Exact next action: Write the transaction contract and failure points before repository implementation.
+- Current state: ResolvedTurnUnitOfWork and RuleBasedMasteryPolicy fully implemented and verified with failure injection and reproducibility tests.
+- Remaining work: None for TASK-012.
+- Exact next action: Proceed to TASK-013 (Build progress projection and turn observability).
 
 ## Definition of Done
 
 DONE requires atomicity/idempotency/reproducibility tests, satisfied criteria, and no blocker.
+

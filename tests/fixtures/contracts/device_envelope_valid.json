@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "message_id": "msg-123e4567-e89b-12d3-a456-426614174000",
+  "session_id": "sess-987fcdeb-51a2-43f7-9876-543210987654",
+  "turn_id": "turn-001",
+  "seq": 1,
+  "timestamp_ms": 1725700000000,
+  "type": "COMMAND",
+  "command": {
+    "schema_version": "1.0",
+    "command_type": "SPEAK",
+    "audio_asset_id": "prompt-hewan-kucing-v1",
+    "display": "SPEAKING",
+    "gesture": "NOD",
+    "parameters": {
+      "auto_listen_after": true
+    }
+  },
+  "event": null,
+  "ack": null,
+  "audio_meta": null
+}

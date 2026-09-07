@@ -1,0 +1,342 @@
+[
+  {
+    "id": "case_01_exact_single_word",
+    "description": "Exact single word match with high confidence",
+    "target_concept": "mata",
+    "answer_spec": {
+      "exact_matches": ["mata"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "mata",
+      "confidence": 0.98,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "EXACT_MATCH"
+  },
+  {
+    "id": "case_02_exact_casing_and_punctuation",
+    "description": "Exact match with uppercase and punctuation",
+    "target_concept": "mata",
+    "answer_spec": {
+      "exact_matches": ["mata"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "Mata!",
+      "confidence": 0.95,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "EXACT_MATCH"
+  },
+  {
+    "id": "case_03_filler_words_eh_anu",
+    "description": "Indonesian toddler filler words stripped before matching",
+    "target_concept": "mata",
+    "answer_spec": {
+      "exact_matches": ["mata"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "eh anu mata",
+      "confidence": 0.92,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "EXACT_MATCH"
+  },
+  {
+    "id": "case_04_phrase_carrier_ini_mata",
+    "description": "Carrier phrase containing the target exact match",
+    "target_concept": "mata",
+    "answer_spec": {
+      "exact_matches": ["mata"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "ini mata toki",
+      "confidence": 0.94,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "EXACT_MATCH"
+  },
+  {
+    "id": "case_05_synonym_kuping_for_telinga",
+    "description": "Approved Indonesian synonym kuping matching target telinga",
+    "target_concept": "telinga",
+    "answer_spec": {
+      "exact_matches": ["telinga"],
+      "synonyms": ["kuping"],
+      "phonetic_variations": ["eyinga", "telingo"]
+    },
+    "evidence": {
+      "transcript": "kuping",
+      "confidence": 0.91,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "SYNONYM_MATCH"
+  },
+  {
+    "id": "case_06_synonym_in_sentence",
+    "description": "Approved synonym in toddler sentence",
+    "target_concept": "telinga",
+    "answer_spec": {
+      "exact_matches": ["telinga"],
+      "synonyms": ["kuping"],
+      "phonetic_variations": ["eyinga"]
+    },
+    "evidence": {
+      "transcript": "itu kuping ya",
+      "confidence": 0.89,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "SYNONYM_MATCH"
+  },
+  {
+    "id": "case_07_phonetic_variant_idung",
+    "description": "Common Indonesian toddler phonetic elision 'idung' for 'hidung'",
+    "target_concept": "hidung",
+    "answer_spec": {
+      "exact_matches": ["hidung"],
+      "synonyms": [],
+      "phonetic_variations": ["idung", "hidun"]
+    },
+    "evidence": {
+      "transcript": "idung",
+      "confidence": 0.88,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "PHONETIC_MATCH"
+  },
+  {
+    "id": "case_08_phonetic_variant_with_filler",
+    "description": "Toddler phonetic variation with hesitation filler",
+    "target_concept": "hidung",
+    "answer_spec": {
+      "exact_matches": ["hidung"],
+      "synonyms": [],
+      "phonetic_variations": ["idung", "hidun"]
+    },
+    "evidence": {
+      "transcript": "em idung",
+      "confidence": 0.86,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "PHONETIC_MATCH"
+  },
+  {
+    "id": "case_09_fuzzy_normalized_typo",
+    "description": "1-character edit distance for word >= 4 letters",
+    "target_concept": "hidung",
+    "answer_spec": {
+      "exact_matches": ["hidung"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "hidun",
+      "confidence": 0.85,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "NORMALIZED_MATCH"
+  },
+  {
+    "id": "case_10_low_confidence_exact_word",
+    "description": "Correct word but ASR confidence below 0.65 threshold (FR-009 uncertainty invariant)",
+    "target_concept": "mata",
+    "answer_spec": {
+      "exact_matches": ["mata"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "mata",
+      "confidence": 0.52,
+      "status": "SUCCESS"
+    },
+    "expected_status": "UNCERTAIN",
+    "expected_reason_code": "LOW_CONFIDENCE"
+  },
+  {
+    "id": "case_11_low_confidence_garbage_text",
+    "description": "Unrecognized gibberish with low confidence",
+    "target_concept": "telinga",
+    "answer_spec": {
+      "exact_matches": ["telinga"],
+      "synonyms": ["kuping"],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "asdf ghjk",
+      "confidence": 0.35,
+      "status": "SUCCESS"
+    },
+    "expected_status": "UNCERTAIN",
+    "expected_reason_code": "LOW_CONFIDENCE"
+  },
+  {
+    "id": "case_12_silence_empty_string",
+    "description": "Child kept quiet, transcript is empty (FR-009: never INCORRECT)",
+    "target_concept": "mata",
+    "answer_spec": {
+      "exact_matches": ["mata"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "",
+      "confidence": 1.0,
+      "status": "SUCCESS"
+    },
+    "expected_status": "NO_RESPONSE",
+    "expected_reason_code": "NO_SPEECH_DETECTED"
+  },
+  {
+    "id": "case_13_silence_spaces_and_dots",
+    "description": "ASR emitted only dots or whitespace",
+    "target_concept": "mata",
+    "answer_spec": {
+      "exact_matches": ["mata"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "   ...   ",
+      "confidence": 0.99,
+      "status": "SUCCESS"
+    },
+    "expected_status": "NO_RESPONSE",
+    "expected_reason_code": "NO_SPEECH_DETECTED"
+  },
+  {
+    "id": "case_14_asr_no_speech_status",
+    "description": "ASR pipeline explicitly signaled NO_SPEECH status",
+    "target_concept": "mulut",
+    "answer_spec": {
+      "exact_matches": ["mulut"],
+      "synonyms": ["bibir"],
+      "phonetic_variations": ["muut"]
+    },
+    "evidence": {
+      "transcript": "",
+      "confidence": 1.0,
+      "status": "NO_SPEECH"
+    },
+    "expected_status": "NO_RESPONSE",
+    "expected_reason_code": "NO_SPEECH_DETECTED"
+  },
+  {
+    "id": "case_15_audio_corrupted_error",
+    "description": "Audio buffer was corrupted or dropped by hardware",
+    "target_concept": "mata",
+    "answer_spec": {
+      "exact_matches": ["mata"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "",
+      "confidence": 0.0,
+      "status": "ERROR"
+    },
+    "expected_status": "UNCERTAIN",
+    "expected_reason_code": "AUDIO_CORRUPTED"
+  },
+  {
+    "id": "case_16_audio_timeout",
+    "description": "ASR engine timed out waiting for audio packets",
+    "target_concept": "hidung",
+    "answer_spec": {
+      "exact_matches": ["hidung"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "",
+      "confidence": 0.0,
+      "status": "TIMEOUT"
+    },
+    "expected_status": "UNCERTAIN",
+    "expected_reason_code": "AUDIO_CORRUPTED"
+  },
+  {
+    "id": "case_17_explicit_mismatch_clear_wrong_answer",
+    "description": "Child clearly answered 'kaki' when the target body part was 'mata'",
+    "target_concept": "mata",
+    "answer_spec": {
+      "exact_matches": ["mata"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "kaki",
+      "confidence": 0.95,
+      "status": "SUCCESS"
+    },
+    "expected_status": "INCORRECT",
+    "expected_reason_code": "EXPLICIT_MISMATCH"
+  },
+  {
+    "id": "case_18_explicit_mismatch_different_body_part",
+    "description": "Child said 'tangan' when asked for 'telinga'",
+    "target_concept": "telinga",
+    "answer_spec": {
+      "exact_matches": ["telinga"],
+      "synonyms": ["kuping"],
+      "phonetic_variations": ["eyinga"]
+    },
+    "evidence": {
+      "transcript": "tangan",
+      "confidence": 0.92,
+      "status": "SUCCESS"
+    },
+    "expected_status": "INCORRECT",
+    "expected_reason_code": "EXPLICIT_MISMATCH"
+  },
+  {
+    "id": "case_19_reduplication_mata_mata",
+    "description": "Child repeats word excitedly 'mata-mata' normalized to 'mata'",
+    "target_concept": "mata",
+    "answer_spec": {
+      "exact_matches": ["mata"],
+      "synonyms": [],
+      "phonetic_variations": []
+    },
+    "evidence": {
+      "transcript": "mata-mata",
+      "confidence": 0.94,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "EXACT_MATCH"
+  },
+  {
+    "id": "case_20_synonym_bibir_for_mulut",
+    "description": "Approved synonym bibir for target concept mulut",
+    "target_concept": "mulut",
+    "answer_spec": {
+      "exact_matches": ["mulut"],
+      "synonyms": ["bibir"],
+      "phonetic_variations": ["muut"]
+    },
+    "evidence": {
+      "transcript": "bibir",
+      "confidence": 0.96,
+      "status": "SUCCESS"
+    },
+    "expected_status": "CORRECT",
+    "expected_reason_code": "SYNONYM_MATCH"
+  }
+]

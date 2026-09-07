@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "plan-invalid",
+  "session_id": "sess-987fcdeb-51a2-43f7-9876-543210987654",
+  "turn_id": "turn-001",
+  "pedagogical_act": "PRAISE",
+  "approved_text": "Hebat!",
+  "spoken_text": "Satu dua tiga empat lima enam tujuh delapan sembilan sepuluh sebelas dua belas tiga belas empat belas lima belas enam belas tujuh belas delapan belas sembilan belas dua puluh dua satu dua dua dua tiga dua empat dua lima dua enam.",
+  "audio_asset_id": "praise-01",
+  "provenance": {
+    "schema_version": "1.0",
+    "curriculum_version": "2026.1",
+    "module_id": "animals",
+    "activity_id": "act_sound_guess",
+    "template_id": "tpl_praise_correct"
+  }
+}

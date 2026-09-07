@@ -1,9 +1,9 @@
 # Current Task
 
-- **Active Task:** TASK-002
-- **Status:** DONE
-- **Task file:** `tasks/TASK-002.md`
+- **Active Task:** TASK-014
+- **Status:** IN_PROGRESS
+- **Task file:** `tasks/TASK-014.md`
 - **Current Agent:** Antigravity
-- **Last validated commit:** a8e019df526ffde379f9692cf585c480370c6065
+- **Last validated commit:** b3ea649
 
 Detailed implementation state belongs in the task file and `handoffs/latest.md`.

@@ -1,0 +1,123 @@
+[
+  {
+    "id": "decision_01_correct_praise",
+    "assessment_status": "CORRECT",
+    "assessment_reason": "EXACT_MATCH",
+    "turn_retry_count": 0,
+    "raw_transcript": "mata",
+    "expected_act": "PRAISE",
+    "expected_is_escalation": false,
+    "expected_display": "HAPPY",
+    "expected_gesture": "CELEBRATE"
+  },
+  {
+    "id": "decision_02_incorrect_retry",
+    "assessment_status": "INCORRECT",
+    "assessment_reason": "EXPLICIT_MISMATCH",
+    "turn_retry_count": 0,
+    "raw_transcript": "kaki",
+    "expected_act": "RETRY_PROMPT",
+    "expected_is_escalation": false,
+    "expected_display": "ENCOURAGING",
+    "expected_gesture": "TILT_HEAD"
+  },
+  {
+    "id": "decision_03_incorrect_exhausted_fallback",
+    "assessment_status": "INCORRECT",
+    "assessment_reason": "EXPLICIT_MISMATCH",
+    "turn_retry_count": 1,
+    "raw_transcript": "kaki",
+    "expected_act": "HINT",
+    "expected_is_escalation": false,
+    "expected_display": "CURIOUS",
+    "expected_gesture": "NOD"
+  },
+  {
+    "id": "decision_04_uncertain_retry",
+    "assessment_status": "UNCERTAIN",
+    "assessment_reason": "LOW_CONFIDENCE",
+    "turn_retry_count": 0,
+    "raw_transcript": "mata",
+    "expected_act": "RETRY_PROMPT",
+    "expected_is_escalation": false,
+    "expected_display": "ENCOURAGING",
+    "expected_gesture": "TILT_HEAD"
+  },
+  {
+    "id": "decision_05_uncertain_exhausted_fallback",
+    "assessment_status": "UNCERTAIN",
+    "assessment_reason": "LOW_CONFIDENCE",
+    "turn_retry_count": 1,
+    "raw_transcript": "mata",
+    "expected_act": "HINT",
+    "expected_is_escalation": false,
+    "expected_display": "CURIOUS",
+    "expected_gesture": "NOD"
+  },
+  {
+    "id": "decision_06_no_response_retry",
+    "assessment_status": "NO_RESPONSE",
+    "assessment_reason": "NO_SPEECH_DETECTED",
+    "turn_retry_count": 0,
+    "raw_transcript": "",
+    "expected_act": "RETRY_PROMPT",
+    "expected_is_escalation": false,
+    "expected_display": "ENCOURAGING",
+    "expected_gesture": "TILT_HEAD"
+  },
+  {
+    "id": "decision_07_no_response_exhausted_fallback",
+    "assessment_status": "NO_RESPONSE",
+    "assessment_reason": "NO_SPEECH_DETECTED",
+    "turn_retry_count": 1,
+    "raw_transcript": "",
+    "expected_act": "HINT",
+    "expected_is_escalation": false,
+    "expected_display": "CURIOUS",
+    "expected_gesture": "NOD"
+  },
+  {
+    "id": "decision_08_danger_override",
+    "assessment_status": "CORRECT",
+    "assessment_reason": "EXACT_MATCH",
+    "turn_retry_count": 0,
+    "raw_transcript": "sakit berdarah toki",
+    "expected_act": "ESCALATION",
+    "expected_is_escalation": true,
+    "expected_display": "SPEAKING",
+    "expected_gesture": "RESET"
+  },
+  {
+    "id": "decision_09_distress_override",
+    "assessment_status": "INCORRECT",
+    "assessment_reason": "EXPLICIT_MISMATCH",
+    "turn_retry_count": 0,
+    "raw_transcript": "aku takut seram",
+    "expected_act": "ESCALATION",
+    "expected_is_escalation": true,
+    "expected_display": "ENCOURAGING",
+    "expected_gesture": "NOD"
+  },
+  {
+    "id": "decision_10_explicit_stop_override",
+    "assessment_status": "CORRECT",
+    "assessment_reason": "EXACT_MATCH",
+    "turn_retry_count": 0,
+    "raw_transcript": "stop main toki",
+    "expected_act": "CLOSING",
+    "expected_is_escalation": false,
+    "expected_display": "HAPPY",
+    "expected_gesture": "WAVE"
+  },
+  {
+    "id": "decision_11_inappropriate_override",
+    "assessment_status": "INCORRECT",
+    "assessment_reason": "EXPLICIT_MISMATCH",
+    "turn_retry_count": 0,
+    "raw_transcript": "aku mau pukul",
+    "expected_act": "ESCALATION",
+    "expected_is_escalation": true,
+    "expected_display": "SPEAKING",
+    "expected_gesture": "RESET"
+  }
+]

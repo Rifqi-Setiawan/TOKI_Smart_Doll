@@ -1,0 +1,79 @@
+name: CI Quality Gates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fast-gates:
+    name: Fast Quality Gates (Lint, Types, Secrets, Schemas)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Ruff Lint Check (DEV-005)
+        run: ruff check app tests simulators alembic scripts
+
+      - name: Ruff Formatting Check
+        run: ruff format --check app tests simulators alembic scripts
+
+      - name: Mypy Static Type Analysis
+        run: mypy app simulators tests scripts
+
+      - name: Secret and Privacy Leak Scan (DEV-006, SEC-007)
+        run: python scripts/scan_secrets.py
+
+      - name: Contract Schema Parity Drift Check (API-001)
+        run: python scripts/export_schemas.py --check
+
+      - name: Startup Smoke and Health Check (DEV-001)
+        run: python scripts/smoke_check.py
+
+  test-suite:
+    name: Mandatory Test Gates (Migrations, Contracts, Unit, Integration)
+    needs: fast-gates
+    runs-on: ubuntu-latest
+    env:
+      PROFILE: test
+      ENV: test
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Database Migration & Rollback Lifecycle (DATA-001, DEV-003)
+        run: pytest tests/migration -v
+
+      - name: Contract & Provider Architecture Guard (AI-001, AI-003)
+        run: pytest tests/contract tests/provider_contract -v
+
+      - name: Core Unit & Integration Tests (REL-001-005, EVAL-001)
+        run: pytest tests/unit tests/integration -v

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "message_id": "msg-invalid",
+  "session_id": "sess-invalid",
+  "seq": -5,
+  "timestamp_ms": 1725700000000,
+  "type": "UNKNOWN_ENUM_TYPE"
+}

@@ -1,0 +1,56 @@
+{
+  "$defs": {
+    "ErrorCode": {
+      "description": "Standardized machine-readable error codes (API-005).",
+      "enum": [
+        "INVALID_PAYLOAD",
+        "UNKNOWN_SCHEMA_VERSION",
+        "STALE_STATE_VERSION",
+        "SESSION_NOT_FOUND",
+        "CONSENT_REQUIRED",
+        "DEVICE_UNAUTHORIZED",
+        "RATE_LIMIT_EXCEEDED",
+        "PROVIDER_UNAVAILABLE",
+        "INTERNAL_ERROR"
+      ],
+      "title": "ErrorCode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Typed error envelope safe for external delivery (API-005).",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "description": "Semantic contract schema version (API-001)",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "error_code": {
+      "$ref": "#/$defs/ErrorCode",
+      "description": "Categorized error identifier"
+    },
+    "message": {
+      "description": "Safe user-facing or client diagnostic message",
+      "title": "Message",
+      "type": "string"
+    },
+    "correlation_id": {
+      "description": "Trace or session correlation identifier",
+      "title": "Correlation Id",
+      "type": "string"
+    },
+    "details": {
+      "description": "Redacted contextual diagnostic key-values",
+      "title": "Details",
+      "type": "object"
+    }
+  },
+  "required": [
+    "error_code",
+    "message",
+    "correlation_id"
+  ],
+  "title": "ErrorResponse",
+  "type": "object"
+}

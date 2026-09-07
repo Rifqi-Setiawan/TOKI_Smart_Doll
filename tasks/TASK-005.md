@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** TODO
+- **Status:** DONE
 - **Priority:** P0
 - **Epic:** E1 — Foundation
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity
 - **Dependencies:** TASK-003
 - **Requirement IDs:** AI-001–003, AI-006, DEV-004
 - **Architecture/ADR:** Replaceable bounded adapters; ADR-004, ADR-008
@@ -75,11 +75,11 @@ Not applicable — fakes/simulators; contract fidelity and determinism are the e
 
 ## Acceptance Criteria
 
-- [ ] Every optional/provider dependency is replaceable by a deterministic fake.
-- [ ] Device simulator completes versioned handshake and receives ACK/command fixtures.
-- [ ] Flutter simulator validates progress DTO fixtures.
-- [ ] Failure modes are reproducible and side-effect free.
-- [ ] Architecture test proves providers cannot mutate authoritative state.
+- [x] Every optional/provider dependency is replaceable by a deterministic fake.
+- [x] Device simulator completes versioned handshake and receives ACK/command fixtures.
+- [x] Flutter simulator validates progress DTO fixtures.
+- [x] Failure modes are reproducible and side-effect free.
+- [x] Architecture test proves providers cannot mutate authoritative state.
 
 ## Risks
 
@@ -90,12 +90,13 @@ Not applicable — fakes/simulators; contract fidelity and determinism are the e
 | Date (UTC) | Agent | Commit | Work / evidence |
 |---|---|---|---|
 | 2026-09-06 | Planning agent | — | Initial task created. |
+| 2026-09-07 | Antigravity | b3ea649 | Implemented provider interfaces, deterministic fakes, device & Flutter simulators, architecture test guard, and provider docs. All 57 tests pass. |
 
 ## Handoff Notes
 
-- Current state: Awaiting contracts.
-- Remaining work: Entire scope.
-- Exact next action: Define adapter protocols from contracts, then implement deterministic failure matrix.
+- Current state: Vendor-neutral interfaces, deterministic fakes (ASR, TTS, Semantic, Paraphraser, Vision), Device & Flutter simulators, and architecture isolation guards implemented and verified (57 tests passing, ruff & mypy clean).
+- Remaining work: None for TASK-005. Ready for session state machine (TASK-007).
+- Exact next action: Proceed to TASK-007 ("Implement deterministic session state machine") or parallel task (TASK-006 / TASK-009).
 
 ## Definition of Done
 

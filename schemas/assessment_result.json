@@ -1,0 +1,121 @@
+{
+  "$defs": {
+    "AssessmentReasonCode": {
+      "description": "Deterministic explanation codes for assessment (OBS-005).",
+      "enum": [
+        "EXACT_MATCH",
+        "SYNONYM_MATCH",
+        "NORMALIZED_MATCH",
+        "PHONETIC_MATCH",
+        "SEMANTIC_RESOLVED",
+        "EXPLICIT_MISMATCH",
+        "LOW_CONFIDENCE",
+        "NO_SPEECH_DETECTED",
+        "AUDIO_CORRUPTED"
+      ],
+      "title": "AssessmentReasonCode",
+      "type": "string"
+    },
+    "AssessmentStatus": {
+      "description": "Pedagogical evaluation outcome of child response (FR-008, FR-009).",
+      "enum": [
+        "CORRECT",
+        "INCORRECT",
+        "AMBIGUOUS",
+        "UNCERTAIN",
+        "NO_RESPONSE"
+      ],
+      "title": "AssessmentStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Deterministic or bounded evaluation of a child response turn (FR-008, FR-009, ADR-006).",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "description": "Semantic contract schema version (API-001)",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "session_id": {
+      "description": "Authoritative session identifier",
+      "title": "Session Id",
+      "type": "string"
+    },
+    "turn_id": {
+      "description": "Turn correlation identifier",
+      "title": "Turn Id",
+      "type": "string"
+    },
+    "state_version": {
+      "description": "Monotonic state version for optimistic concurrency guard (API-006)",
+      "minimum": 1,
+      "title": "State Version",
+      "type": "integer"
+    },
+    "status": {
+      "$ref": "#/$defs/AssessmentStatus",
+      "description": "Normalized assessment status"
+    },
+    "target_concept": {
+      "description": "Target curriculum concept ID or token",
+      "title": "Target Concept",
+      "type": "string"
+    },
+    "matched_phrase": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Recognized phrase that satisfied the match",
+      "title": "Matched Phrase"
+    },
+    "is_correct": {
+      "description": "Whether the turn counts as a correct learning attempt",
+      "title": "Is Correct",
+      "type": "boolean"
+    },
+    "confidence": {
+      "description": "Assessment decision confidence",
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "reason_code": {
+      "$ref": "#/$defs/AssessmentReasonCode",
+      "description": "Deterministic reason explanation"
+    },
+    "policy_version": {
+      "default": "RULE-ASSESS-1.0",
+      "description": "Assessment rule version",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "evaluation_latency_ms": {
+      "description": "Assessment evaluation time in milliseconds",
+      "minimum": 0.0,
+      "title": "Evaluation Latency Ms",
+      "type": "number"
+    }
+  },
+  "required": [
+    "session_id",
+    "turn_id",
+    "state_version",
+    "status",
+    "target_concept",
+    "is_correct",
+    "confidence",
+    "reason_code",
+    "evaluation_latency_ms"
+  ],
+  "title": "AssessmentResult",
+  "type": "object"
+}

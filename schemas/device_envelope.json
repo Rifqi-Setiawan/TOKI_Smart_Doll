@@ -1,0 +1,425 @@
+{
+  "$defs": {
+    "AudioMetadata": {
+      "additionalProperties": false,
+      "description": "Metadata describing a separate binary audio segment or chunk (API-002).",
+      "properties": {
+        "schema_version": {
+          "default": "1.0",
+          "description": "Semantic contract schema version (API-001)",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "audio_spec": {
+          "$ref": "#/$defs/AudioSpec"
+        },
+        "chunk_index": {
+          "description": "Monotonic index of chunk within turn",
+          "minimum": 0,
+          "title": "Chunk Index",
+          "type": "integer"
+        },
+        "is_final": {
+          "default": false,
+          "description": "True if this is final chunk of speech",
+          "title": "Is Final",
+          "type": "boolean"
+        },
+        "byte_length": {
+          "description": "Length of associated binary frame in bytes",
+          "exclusiveMinimum": 0,
+          "title": "Byte Length",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "audio_spec",
+        "chunk_index",
+        "byte_length"
+      ],
+      "title": "AudioMetadata",
+      "type": "object"
+    },
+    "AudioSpec": {
+      "additionalProperties": false,
+      "description": "Audio streaming negotiation and constraints (API-002, SEC-003).",
+      "properties": {
+        "schema_version": {
+          "default": "1.0",
+          "description": "Semantic contract schema version (API-001)",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "codec": {
+          "$ref": "#/$defs/CodecType",
+          "default": "PCM_16BIT",
+          "description": "Negotiated audio codec"
+        },
+        "sample_rate": {
+          "default": 16000,
+          "description": "Sample rate in Hz (default 16kHz)",
+          "title": "Sample Rate",
+          "type": "integer"
+        },
+        "channels": {
+          "default": 1,
+          "description": "Number of channels (1 = mono)",
+          "title": "Channels",
+          "type": "integer"
+        },
+        "max_duration_ms": {
+          "default": 15000,
+          "description": "Hard cap on audio turn duration",
+          "title": "Max Duration Ms",
+          "type": "integer"
+        },
+        "max_chunk_bytes": {
+          "default": 32768,
+          "description": "Hard limit on binary chunk size",
+          "title": "Max Chunk Bytes",
+          "type": "integer"
+        }
+      },
+      "title": "AudioSpec",
+      "type": "object"
+    },
+    "CodecType": {
+      "description": "Supported device audio codecs.",
+      "enum": [
+        "PCM_16BIT",
+        "OPUS",
+        "AAC"
+      ],
+      "title": "CodecType",
+      "type": "string"
+    },
+    "CommandType": {
+      "description": "Authoritative commands sent from orchestrator to device client.",
+      "enum": [
+        "START_SESSION",
+        "SPEAK",
+        "DISPLAY",
+        "GESTURE",
+        "CAPTURE_OBJECT",
+        "STOP_SESSION"
+      ],
+      "title": "CommandType",
+      "type": "string"
+    },
+    "DeviceAck": {
+      "additionalProperties": false,
+      "description": "Reliable protocol acknowledgement payload (FR-004).",
+      "properties": {
+        "schema_version": {
+          "default": "1.0",
+          "description": "Semantic contract schema version (API-001)",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "original_message_id": {
+          "description": "Message ID being acknowledged",
+          "title": "Original Message Id",
+          "type": "string"
+        },
+        "original_seq": {
+          "description": "Sequence number being acknowledged",
+          "minimum": 0,
+          "title": "Original Seq",
+          "type": "integer"
+        },
+        "status": {
+          "default": "OK",
+          "description": "'OK' or 'FAILED'",
+          "title": "Status",
+          "type": "string"
+        },
+        "error_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional error detail",
+          "title": "Error Reason"
+        }
+      },
+      "required": [
+        "original_message_id",
+        "original_seq"
+      ],
+      "title": "DeviceAck",
+      "type": "object"
+    },
+    "DeviceCommand": {
+      "additionalProperties": false,
+      "description": "Typed command sent to device.",
+      "properties": {
+        "schema_version": {
+          "default": "1.0",
+          "description": "Semantic contract schema version (API-001)",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "command_type": {
+          "$ref": "#/$defs/CommandType"
+        },
+        "audio_asset_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Cached audio asset identifier",
+          "title": "Audio Asset Id"
+        },
+        "display": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DisplayState"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Expression state"
+        },
+        "gesture": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GestureType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Physical gesture"
+        },
+        "parameters": {
+          "description": "Auxiliary parameters",
+          "title": "Parameters",
+          "type": "object"
+        }
+      },
+      "required": [
+        "command_type"
+      ],
+      "title": "DeviceCommand",
+      "type": "object"
+    },
+    "DeviceEvent": {
+      "additionalProperties": false,
+      "description": "Typed event emitted by device.",
+      "properties": {
+        "schema_version": {
+          "default": "1.0",
+          "description": "Semantic contract schema version (API-001)",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "event_type": {
+          "$ref": "#/$defs/EventType"
+        },
+        "button_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of pressed button",
+          "title": "Button Id"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Hardware error code if error event",
+          "title": "Error Code"
+        },
+        "metadata": {
+          "description": "Event telemetry metadata",
+          "title": "Metadata",
+          "type": "object"
+        }
+      },
+      "required": [
+        "event_type"
+      ],
+      "title": "DeviceEvent",
+      "type": "object"
+    },
+    "DisplayState": {
+      "description": "OLED/screen face expression enum.",
+      "enum": [
+        "IDLE",
+        "LISTENING",
+        "THINKING",
+        "SPEAKING",
+        "HAPPY",
+        "CURIOUS",
+        "ENCOURAGING"
+      ],
+      "title": "DisplayState",
+      "type": "string"
+    },
+    "EnvelopeType": {
+      "description": "High-level envelope dispatch category.",
+      "enum": [
+        "COMMAND",
+        "EVENT",
+        "ACK",
+        "AUDIO_METADATA"
+      ],
+      "title": "EnvelopeType",
+      "type": "string"
+    },
+    "EventType": {
+      "description": "Physical and interaction events originating from device.",
+      "enum": [
+        "AUDIO_START",
+        "AUDIO_END",
+        "BUTTON_PRESSED",
+        "WAKE_WORD_DETECTED",
+        "ERROR"
+      ],
+      "title": "EventType",
+      "type": "string"
+    },
+    "GestureType": {
+      "description": "Servo/motor physical actuation enum.",
+      "enum": [
+        "NOD",
+        "WAVE",
+        "TILT_HEAD",
+        "CELEBRATE",
+        "RESET"
+      ],
+      "title": "GestureType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Compact JSON control envelope separated from binary media (API-001, API-002, FR-004).",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "description": "Semantic contract schema version (API-001)",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "message_id": {
+      "description": "Unique UUID message identifier",
+      "title": "Message Id",
+      "type": "string"
+    },
+    "session_id": {
+      "description": "Session correlation identifier",
+      "title": "Session Id",
+      "type": "string"
+    },
+    "turn_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Turn correlation identifier",
+      "title": "Turn Id"
+    },
+    "seq": {
+      "description": "Monotonically increasing sequence number",
+      "minimum": 0,
+      "title": "Seq",
+      "type": "integer"
+    },
+    "timestamp_ms": {
+      "description": "UTC timestamp in epoch milliseconds",
+      "title": "Timestamp Ms",
+      "type": "integer"
+    },
+    "type": {
+      "$ref": "#/$defs/EnvelopeType",
+      "description": "Envelope payload type"
+    },
+    "command": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DeviceCommand"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Command payload"
+    },
+    "event": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DeviceEvent"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Event payload"
+    },
+    "ack": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DeviceAck"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Ack payload"
+    },
+    "audio_meta": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AudioMetadata"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Audio metadata"
+    }
+  },
+  "required": [
+    "message_id",
+    "session_id",
+    "seq",
+    "timestamp_ms",
+    "type"
+  ],
+  "title": "DeviceEnvelope",
+  "type": "object"
+}

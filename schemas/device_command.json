@@ -1,0 +1,103 @@
+{
+  "$defs": {
+    "CommandType": {
+      "description": "Authoritative commands sent from orchestrator to device client.",
+      "enum": [
+        "START_SESSION",
+        "SPEAK",
+        "DISPLAY",
+        "GESTURE",
+        "CAPTURE_OBJECT",
+        "STOP_SESSION"
+      ],
+      "title": "CommandType",
+      "type": "string"
+    },
+    "DisplayState": {
+      "description": "OLED/screen face expression enum.",
+      "enum": [
+        "IDLE",
+        "LISTENING",
+        "THINKING",
+        "SPEAKING",
+        "HAPPY",
+        "CURIOUS",
+        "ENCOURAGING"
+      ],
+      "title": "DisplayState",
+      "type": "string"
+    },
+    "GestureType": {
+      "description": "Servo/motor physical actuation enum.",
+      "enum": [
+        "NOD",
+        "WAVE",
+        "TILT_HEAD",
+        "CELEBRATE",
+        "RESET"
+      ],
+      "title": "GestureType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Typed command sent to device.",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "description": "Semantic contract schema version (API-001)",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "command_type": {
+      "$ref": "#/$defs/CommandType"
+    },
+    "audio_asset_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Cached audio asset identifier",
+      "title": "Audio Asset Id"
+    },
+    "display": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DisplayState"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Expression state"
+    },
+    "gesture": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/GestureType"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Physical gesture"
+    },
+    "parameters": {
+      "description": "Auxiliary parameters",
+      "title": "Parameters",
+      "type": "object"
+    }
+  },
+  "required": [
+    "command_type"
+  ],
+  "title": "DeviceCommand",
+  "type": "object"
+}

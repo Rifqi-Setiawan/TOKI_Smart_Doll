@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "session_id": "sess-987fcdeb-51a2-43f7-9876-543210987654",
+  "turn_id": "turn-001",
+  "state_version": 2,
+  "status": "UNCERTAIN",
+  "target_concept": "hewan_kucing",
+  "matched_phrase": null,
+  "is_correct": true,
+  "confidence": 0.3,
+  "reason_code": "LOW_CONFIDENCE",
+  "policy_version": "RULE-ASSESS-1.0",
+  "evaluation_latency_ms": 10.0
+}

@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** READY
+- **Status:** DONE
 - **Priority:** P0
 - **Epic:** E1 — Foundation
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity (commit b3ea649)
 - **Dependencies:** TASK-001
 - **Requirement IDs:** API-001, API-002, API-004, API-005, API-006, AI-002
 - **Architecture/ADR:** Boundary contracts; AI evidence-only; ADR-003, ADR-004
@@ -74,11 +74,11 @@ Control remains deterministic only if every external/probabilistic boundary is t
 
 ## Acceptance Criteria
 
-- [ ] Every named boundary has a Pydantic contract and exported schema.
-- [ ] Valid/invalid golden fixtures are consumable by hardware/Flutter/CV simulators.
-- [ ] All probabilistic outputs carry status/version/latency and abstain/error semantics.
-- [ ] Stale callback correlation fields are mandatory.
-- [ ] Contract tests and redacted error snapshots pass.
+- [x] Every named boundary has a Pydantic contract and exported schema.
+- [x] Valid/invalid golden fixtures are consumable by hardware/Flutter/CV simulators.
+- [x] All probabilistic outputs carry status/version/latency and abstain/error semantics.
+- [x] Stale callback correlation fields are mandatory.
+- [x] Contract tests and redacted error snapshots pass.
 
 ## Risks
 
@@ -89,12 +89,13 @@ Control remains deterministic only if every external/probabilistic boundary is t
 | Date (UTC) | Agent | Commit | Work / evidence |
 |---|---|---|---|
 | 2026-09-06 | Planning agent | — | Initial task created. |
+| 2026-09-07 | Antigravity | b3ea649 | Implemented Pydantic v2 contracts (device, speech, assessment, response, vision, mastery, progress, error), exported JSON schemas in schemas/, added golden fixtures in tests/fixtures/contracts/, added contract tests in tests/contract/, authored docs/contracts.md. Verified 37/37 tests pass, ruff check and mypy typecheck clean. |
 
 ## Handoff Notes
 
-- Current state: Awaiting repository inventory.
-- Remaining work: Entire scope.
-- Exact next action: Compare existing models to the required boundary list and create a gap table.
+- Current state: Frozen v1 contracts and exported JSON Schemas in `schemas/`. All 37 unit/contract tests passing.
+- Remaining work: None for TASK-003.
+- Exact next action: Proceed to TASK-004 (PostgreSQL schema & migrations) or parallel tasks TASK-005 / TASK-006.
 
 ## Definition of Done
 

@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** TODO
+- **Status:** DONE
 - **Priority:** P0
 - **Epic:** E2 — Deterministic Core
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity (commit b3ea649)
 - **Dependencies:** TASK-003, TASK-009, TASK-010
 - **Requirement IDs:** FR-011, FR-012, FR-013, SEC-005, SEC-009
 - **Architecture/ADR:** Template-first planner and deterministic safety; ADR-001, ADR-007, ADR-009
@@ -76,11 +76,11 @@ The planner—not an LLM—chooses pedagogical act, approved text/template, gest
 
 ## Acceptance Criteria
 
-- [ ] Every implemented outcome returns a valid approved `ResponsePlan`.
-- [ ] Required high-severity cases select immutable canned response immediately.
-- [ ] Retry/fallback is bounded and state-compatible.
-- [ ] Stop/end works without ASR/LLM/TTS dynamic providers.
-- [ ] Missing/invalid content uses reviewed fallback and is observable.
+- [x] Every implemented outcome returns a valid approved `ResponsePlan`.
+- [x] Required high-severity cases select immutable canned response immediately.
+- [x] Retry/fallback is bounded and state-compatible.
+- [x] Stop/end works without ASR/LLM/TTS dynamic providers.
+- [x] Missing/invalid content uses reviewed fallback and is observable.
 
 ## Risks
 
@@ -91,12 +91,13 @@ The planner—not an LLM—chooses pedagogical act, approved text/template, gest
 | Date (UTC) | Agent | Commit | Work / evidence |
 |---|---|---|---|
 | 2026-09-06 | Planning agent | — | Initial task created. |
+| 2026-09-07 | Antigravity | b3ea649 | Implemented safety catalog & policy evaluator, ResponsePlanner, response plan validators, decision table fixtures, and unit test suites (36 tests, 154/154 repository suite passing). |
 
 ## Handoff Notes
 
-- Current state: Awaiting dependencies and reviewed catalog.
-- Remaining work: Entire scope.
-- Exact next action: Create the assessment×state response decision table and safety precedence fixtures.
+- Current state: Fully implemented, tested, and validated.
+- Remaining work: None for TASK-011. Atomic persistence orchestrator next in TASK-012.
+- Exact next action: Proceed to TASK-012.
 
 ## Definition of Done
 

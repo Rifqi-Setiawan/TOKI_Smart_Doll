@@ -38,18 +38,20 @@ Braces indicate work that can overlap once its own dependencies are satisfied. T
 |---|---|---|---|---|---|---|---|
 | [TASK-001](TASK-001.md) | Inventory repository and map boundaries | E1 Foundation | P0 | DONE | None | DEV-001, DEV-002 | repository_inspection, architecture_review, documentation |
 | [TASK-002](TASK-002.md) | Establish reproducible runtime profiles | E1 Foundation | P0 | DONE | 001 | DEV-001, API-003, API-007, REL-006 | infrastructure, backend, testing |
-| [TASK-003](TASK-003.md) | Freeze versioned domain and API contracts | E1 Foundation | P0 | READY | 001 | API-001, API-002, API-004–006, AI-002 | backend, architecture_review, testing |
-| [TASK-004](TASK-004.md) | Create PostgreSQL schema and migrations | E1 Foundation | P0 | TODO | 002,003 | DATA-001–005,007–010, DEV-003 | backend, database, testing |
-| [TASK-005](TASK-005.md) | Add provider interfaces, fakes, and simulators | E1 Foundation | P0 | TODO | 003 | AI-001–003,006, DEV-004 | backend, AI_ML, testing |
-| [TASK-006](TASK-006.md) | Enforce CI and repository quality gates | E1 Foundation | P0 | READY | 001 | DEV-002, DEV-005, DEV-006 | infrastructure, testing, documentation |
-| [TASK-007](TASK-007.md) | Implement deterministic session state machine | E2 Deterministic Core | P0 | TODO | 003,004,005 | FR-001, FR-002, FR-010, FR-022, REL-001 | backend, testing, architecture_review |
-| [TASK-008](TASK-008.md) | Implement protocol sequencing and resume core | E2 Deterministic Core | P0 | TODO | 003,004,007 | FR-004, FR-005, DATA-002,004, API-006, SEC-004 | backend, debugging, testing |
-| [TASK-009](TASK-009.md) | Implement approved curriculum access | E2 Deterministic Core | P0 | TODO | 003,004 | FR-006, FR-007, DATA-003 | backend, database, testing |
-| [TASK-010](TASK-010.md) | Implement deterministic answer assessment | E2 Deterministic Core | P0 | TODO | 003,009 | FR-008â€“010, AI-005, OBS-005 | backend, AI_ML, testing |
-| [TASK-011](TASK-011.md) | Implement response planning and core safety | E2 Deterministic Core | P0 | TODO | 003,009,010 | FR-011â€“013, SEC-005, SEC-009 | backend, security, testing |
-| [TASK-012](TASK-012.md) | Persist attempts, mastery, events, and outbox atomically | E2 Deterministic Core | P0 | TODO | 004,007,010,011 | FR-014, FR-015, DATA-004,005 | backend, database, testing |
-| [TASK-013](TASK-013.md) | Build progress projection and turn observability | E2 Deterministic Core | P0 | TODO | 012 | FR-016, FR-017, FR-021, OBS-001â€“005 | backend, data, testing |
-| [TASK-014](TASK-014.md) | Prove deterministic end-to-end vertical slice | E2 Deterministic Core | P0 | TODO | 005â€“013 | REL-005, DEV-002, EVAL-001 | testing, backend, evaluation |
+| [TASK-003](TASK-003.md) | Freeze versioned domain and API contracts | E1 Foundation | P0 | DONE | 001 | API-001, API-002, API-004–006, AI-002 | backend, architecture_review, testing |
+| [TASK-004](TASK-004.md) | Create PostgreSQL schema and migrations | E1 Foundation | P0 | DONE | 002,003 | DATA-001–005,007–010, DEV-003 | backend, database, testing |
+| [TASK-005](TASK-005.md) | Add provider interfaces, fakes, and simulators | E1 Foundation | P0 | DONE | 003 | AI-001–003,006, DEV-004 | backend, AI_ML, testing |
+| [TASK-006](TASK-006.md) | Enforce CI and repository quality gates | E1 Foundation | P0 | DONE | 001 | DEV-002, DEV-005, DEV-006 | infrastructure, testing, documentation |
+| [TASK-007](TASK-007.md) | Implement deterministic session state machine | E2 Deterministic Core | P0 | DONE | 003,004,005 | FR-001, FR-002, FR-010, FR-022, REL-001 | backend, testing, architecture_review |
+| [TASK-008](TASK-008.md) | Implement protocol sequencing and resume core | E2 Deterministic Core | P0 | DONE | 003,004,007 | FR-004, FR-005, DATA-002,004, API-006, SEC-004 | backend, debugging, testing |
+| [TASK-009](TASK-009.md) | Implement approved curriculum access | E2 Deterministic Core | P0 | DONE | 003,004 | FR-006, FR-007, DATA-003 | backend, database, testing |
+| [TASK-010](TASK-010.md) | Implement deterministic answer assessment | E2 Deterministic Core | P0 | DONE | 003,009 | FR-008–010, AI-005, OBS-005 | backend, AI_ML, testing |
+| [TASK-011](TASK-011.md) | Implement response planning and core safety | E2 Deterministic Core | P0 | DONE | 003,009,010 | FR-011–013, SEC-005, SEC-009 | backend, security, testing |
+| [TASK-012](TASK-012.md) | Persist attempts, mastery, events, and outbox atomically | E2 Deterministic Core | P0 | DONE | 004,007,010,011 | FR-014, FR-015, DATA-004,005 | backend, database, testing |
+| [TASK-013](TASK-013.md) | Build progress projection and turn observability | E2 Deterministic Core | P0 | DONE | 012 | FR-016, FR-017, FR-021, OBS-001–005 | backend, data, testing |
+
+
+| [TASK-014](TASK-014.md) | Prove deterministic end-to-end vertical slice | E2 Deterministic Core | P0 | READY | 005–013 | REL-005, DEV-002, EVAL-001 | testing, backend, evaluation |
 | [TASK-015](TASK-015.md) | Implement bounded audio ingestion | E3 Speech Baseline | P0 | TODO | 003,008,014 | API-002, SEC-003, DATA-006 | backend, testing, security |
 | [TASK-016](TASK-016.md) | Benchmark and integrate ASR adapter | E3 Speech Baseline | P0 | TODO | 005,015 | AI-004â€“006, DATA-006, EVAL-002 | AI_ML, backend, evaluation |
 | [TASK-017](TASK-017.md) | Implement cache-first Indonesian audio rendering | E3 Speech Baseline | P0 | TODO | 005,011,014 | FR-013, REL-007, AI-006 | backend, AI_ML, testing |

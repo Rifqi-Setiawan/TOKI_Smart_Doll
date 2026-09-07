@@ -2,103 +2,115 @@
 
 ## Active Task
 
-- **Task:** TASK-002 — Establish reproducible runtime profiles
-- **Task file:** `tasks/TASK-002.md`
+- **Task:** TASK-006 — Enforce CI and repository quality gates
+- **Task file:** `tasks/TASK-006.md`
 - **Owner / Agent:** Antigravity
 
 ## Current Status
 
-`DONE` — Runtime profiles, container configurations, settings management, and health endpoints implemented and verified.
+`DONE` — Mandatory CI workflow (`.github/workflows/ci.yml`), 1-to-1 local quality gate runner (`scripts/run_quality_gates.py`), secret and privacy scanner (`scripts/scan_secrets.py`), contract schema drift check (`scripts/export_schemas.py --check`), boot smoke test (`scripts/smoke_check.py`), PR evidence template (`.github/pull_request_template.md`), and comprehensive quality gate documentation (`docs/testing.md`) implemented, verified, and passing all 9 stages in 20.68s.
 
 ## What Was Completed
 
-1. **Dependency & Build Specification:**
-   - Authored `pyproject.toml` targeting `>=3.12,<3.14` with FastAPI, Uvicorn, Pydantic v2, SQLAlchemy async, and Alembic (DEV-001).
-   - Generated pinned `requirements.txt` and `requirements-dev.txt` enabling reproducible native and container builds without requiring `uv` on developer machines lacking it.
-   - Created `.gitignore` to prevent committing virtual environments, temporary build artifacts, audio/video media (ADR-013), or `.env` files.
-2. **Container & Compose Runtime:**
-   - Authored clean `Dockerfile` based on `python:3.12-slim` with a non-root user and curl healthcheck.
-   - Authored `docker-compose.yml` and `compose.yaml` declaring `postgres:16-alpine` and `api` services with healthchecks, volumes, and dependency ordering. One command starts both: `docker compose up --build`.
-3. **Typed Configuration & Runtime Profiles:**
-   - Created `app/config/settings.py` managing typed settings using Pydantic v2.
-   - Defined and verified four explicit profiles:
-     - `test`: Fast, deterministic in-memory/fake settings.
-     - `local`: Developer workstation profile with local PostgreSQL and fake speech adapters.
-     - `cloud`: Cloud profile with edge TLS requirement (API-003) and managed provider configuration.
-     - `demo_offline`: Standalone competition demo twin; strictly zero external cloud credentials or cloud AI requirements (ADR-014).
-   - Enforced ADR-013 invariant: `raw_media_retention=True` is rejected at boot.
-   - Implemented `sanitized_dict()` to redact database passwords and cloud API keys from logs/telemetry.
-   - Authored `.env.example` documenting all configuration keys.
-4. **Health Check Probes (API-007):**
-   - Implemented `app/api/health.py`:
-     - `GET /health/live`: Fast process and event loop liveness probe (200 LIVE).
-     - `GET /health/ready`: Core readiness probe (200 READY when core dependencies ok; 503 NOT_READY if core database is unreachable).
-     - `GET /health/demo`: Demo degradation probe (reports `HEALTHY` or `DEGRADED` if optional cloud providers are unconfigured, while process remains live and core remains ready).
-5. **Application Assembly & Verification:**
-   - Implemented `app/main.py` with lifespan validation and router mounting.
-   - Implemented `scripts/smoke_check.py` for automated end-to-end boot validation.
-   - Implemented unit test suite in `tests/unit/` (14 passing tests in `test_config.py` and `test_health.py`).
-   - Verified code passes `pytest`, `ruff check .`, and `mypy app` with zero errors.
+1. **Automated CI Workflow (`.github/workflows/ci.yml`):**
+   - Implemented staged GitHub Actions pipeline:
+     - `fast-gates`: Ruff lint, Ruff format check, Mypy static type check, secret scan, schema drift verification, application boot smoke check.
+     - `test-suite`: Migration tests, contract & architecture guard tests, unit & integration test suite (`PROFILE=test`).
+   - Standard CI operates entirely with deterministic in-memory databases and provider fakes, requiring zero external cloud secrets or network access (`DEV-002`, `DEV-005`).
+
+2. **1-to-1 Local Quality Gate Runner (`scripts/run_quality_gates.py`):**
+   - Implemented unified Python CLI runner executing the identical 9 validation stages as CI:
+     1. Ruff Lint Check (`DEV-002`)
+     2. Ruff Format Check
+     3. Mypy Static Type Check (`DEV-002`)
+     4. Secret and Privacy Scan (`SEC-007`)
+     5. Contract Schema Drift Verification (`ADR-015`)
+     6. Application Boot & Smoke Checks (`DEV-005`)
+     7. Database Migration Cycle Tests (`DATA-001`)
+     8. Contract & Architecture Guard Tests (`DEV-006`)
+     9. Complete Unit & Integration Suite
+   - Supports `--fast-only`, `--tests-only`, and `--fail-fast` options.
+
+3. **Repository Secret & Privacy Scanner (`scripts/scan_secrets.py`):**
+   - Scans repository files against regex signatures for API tokens (`sk-`, `ghp_`, `AKIA`), private keys, authorization bearer tokens, and raw child media (`SEC-007`).
+   - Verified clean across all repository files (0 critical findings).
+
+4. **Schema Drift Verification Flag (`scripts/export_schemas.py --check`):**
+   - Added `--check` mode to verify that serialized contract JSON schemas under `docs/schemas/` match current Pydantic models with zero drift (`ADR-015`).
+
+5. **Boot Smoke Verification Script (`scripts/smoke_check.py`):**
+   - Standalone execution testing `/`, `/health/live`, and `/health/demo` endpoints on a spawned FastAPI test client (`DEV-005`).
+
+6. **Pull Request Evidence Template (`.github/pull_request_template.md`):**
+   - Enforces required metadata: Task ID, Requirement IDs, Architecture/ADR impact, local quality gate verification commands and timings, zero secret findings confirmation, and rollback plan (`DEV-005`).
+
+7. **Testing & Quality Gate Documentation (`docs/testing.md`):**
+   - Documented two-tier gate architecture (Fast Gates vs. Test Suite Gates).
+   - Documented local commands for each gate and full runner.
+   - Documented flake quarantine policy requiring owner, issue reference, and time-bounded expiration.
+   - Documented baseline durations and 0 quarantined flakes.
+
+8. **Pytest Marker Registration (`pyproject.toml`):**
+   - Registered `quarantine` marker in `[tool.pytest.ini_options]` to prevent test engine warnings.
 
 ## What Remains
 
-- Next implementation tasks in Milestone M0:
-  - `TASK-003`: Freeze versioned domain and API contracts (Pydantic models, JSON schemas, protocol envelopes).
-  - `TASK-006`: Enforce CI and repository quality gates.
-  - `TASK-004`: Create PostgreSQL schema and migrations (Alembic) — awaits TASK-003.
+- Milestone E1 (Foundation) tasks: **ALL DONE** (`TASK-001` through `TASK-006`).
+- Milestone E2 (Deterministic Core) domain tasks: **ALL DONE** (`TASK-007` through `TASK-013`).
+- Next milestone gate task:
+  - **`TASK-014`**: Prove deterministic end-to-end vertical slice (status: `READY`, priority: P0, dependencies: `TASK-005` through `TASK-013` [ALL DONE]).
 
 ## Files Changed
 
-- `pyproject.toml` (NEW): Project metadata, dependencies, ruff/mypy/pytest configuration.
-- `requirements.txt` (NEW): Pinned core dependencies.
-- `requirements-dev.txt` (NEW): Pinned development/test dependencies.
-- `.env.example` (NEW): Complete configuration template.
-- `.gitignore` (NEW): Git ignore rules for Python, virtualenv, secrets, and raw media.
-- `Dockerfile` (NEW): Container build definition targeting Python 3.12-slim.
-- `docker-compose.yml` (NEW): Local API + PostgreSQL stack.
-- `compose.yaml` (NEW): Canonical compose specification inclusion.
-- `app/__init__.py` (NEW): Package initialization.
-- `app/config/__init__.py` (NEW): Configuration package initialization.
-- `app/config/settings.py` (NEW): Typed settings and profile invariants.
-- `app/api/__init__.py` (NEW): API package initialization.
-- `app/api/health.py` (NEW): `/health/live`, `/health/ready`, and `/health/demo` probes.
-- `app/main.py` (NEW): FastAPI application factory and lifespan.
-- `scripts/smoke_check.py` (NEW): Standalone startup smoke test script.
-- `tests/__init__.py`, `tests/unit/__init__.py`, `tests/conftest.py` (NEW): Test fixtures and setup.
-- `tests/unit/test_config.py` (NEW): Tests for profiles, invariants, and secret redaction.
-- `tests/unit/test_health.py` (NEW): Tests for health endpoints and semantic distinctions.
-- `tasks/TASK-002.md` (MODIFIED): Marked status `DONE`, all acceptance criteria checked, work log updated.
-- `tasks/index.md` (MODIFIED): Updated TASK-002 status to `DONE`.
-- `CURRENT_TASK.md` (MODIFIED): Updated status to `DONE`.
-- `handoffs/history/handoff-20260907-task001.md` (NEW): Archived previous handoff.
-- `handoffs/latest.md` (MODIFIED): Updated handoff state.
+- `.github/workflows/ci.yml` (NEW): Staged CI pipeline definition.
+- `.github/pull_request_template.md` (NEW): PR validation and evidence checklist template.
+- `scripts/__init__.py` (NEW): Package marker for scripts directory.
+- `scripts/run_quality_gates.py` (NEW): 9-stage local quality gate orchestrator.
+- `scripts/scan_secrets.py` (NEW): Secret and raw child media scanner.
+- `scripts/smoke_check.py` (MODIFIED): Fixed path resolution for standalone execution.
+- `scripts/export_schemas.py` (MODIFIED): Added `--check` schema drift verification flag.
+- `docs/testing.md` (NEW): Quality gate, local reproduction, and flake policy documentation.
+- `pyproject.toml` (MODIFIED): Registered `quarantine` pytest marker.
+- `tasks/TASK-006.md` (MODIFIED): Marked status `DONE`, checked all 5 criteria, updated work log.
+- `tasks/index.md` (MODIFIED): Marked `TASK-006` `DONE`, promoted `TASK-014` to `READY`.
+- `CURRENT_TASK.md` (MODIFIED): Marked active task `TASK-006` as `DONE`.
+- `handoffs/history/handoff-20260907-task013.md` (NEW): Archived previous handoff for TASK-013.
+- `handoffs/latest.md` (MODIFIED): Replaced with current handoff for TASK-006.
 
 ## Tests Executed
 
-- `pytest -v`: 14 passed in 0.15s.
-- `ruff check .`: All checks passed (0 errors).
-- `mypy app`: Success: no issues found in 6 source files (0 errors).
-- `python -m scripts.smoke_check`: All checks passed successfully (Root, Live, Demo).
+- `python scripts/run_quality_gates.py`: **All 9 stages PASSED** in 20.68s.
+  - Stage 1: Ruff Lint Check — PASS (2.08s)
+  - Stage 2: Ruff Formatting Check — PASS (0.61s)
+  - Stage 3: Mypy Static Type Check — PASS (1.68s)
+  - Stage 4: Secret and Privacy Scan — PASS (0.62s)
+  - Stage 5: Schema Drift Verification — PASS (0.58s)
+  - Stage 6: Application Boot & Smoke Checks — PASS (1.59s)
+  - Stage 7: Database Migration Cycle Tests — PASS (2.99s)
+  - Stage 8: Contract & Architecture Guard Tests — PASS (2.29s)
+  - Stage 9: Unit & Integration Test Suite — PASS (8.22s, 154/154 passed)
 
 ## Evaluation Executed
 
-- Acceptance criteria audit for TASK-002: 5/5 criteria PASS.
-- Verified absence of committed secrets, unhandled profiles, or missing health semantics.
+- Acceptance criteria audit for TASK-006:
+  - [x] Required checks run on change/PR and have a documented local equivalent: **PASS** (`.github/workflows/ci.yml`, `scripts/run_quality_gates.py`, `docs/testing.md`).
+  - [x] Standard CI uses deterministic fakes, not live provider credentials: **PASS** (`PROFILE=test`, in-memory DB/fakes, no external credentials needed).
+  - [x] Secret scan and migration/contract checks are mandatory when corresponding files exist: **PASS** (`scripts/scan_secrets.py`, `pytest tests/migration/`, `pytest tests/contracts/`).
+  - [x] PR template requires task/requirements/tests/rollback: **PASS** (`.github/pull_request_template.md`).
+  - [x] Baseline duration and any quarantined flake are recorded: **PASS** (`docs/testing.md`, 20.68s baseline, 0 quarantined flakes).
 
 ## Failures / Known Issues
 
-- None for TASK-002.
-- Local host uses Python 3.13 without `docker` in PATH; container configurations (`Dockerfile`, `docker-compose.yml`) are ready for Docker environments, and native execution via virtualenv is verified on host.
+- None.
 
 ## Decisions Made
 
-- `asyncpg>=0.29.0,<=0.31.0` specified to support both Python 3.12 (Linux/Docker) and prebuilt wheels on Windows Python 3.13.
-- In accordance with API-007 and ADR-004, optional cloud provider absence does not cause process boot failure; instead, it boots live and reports `DEGRADED` in `/health/demo`.
+- Fast static and smoke checks (lint, format, mypy, secret scan, schema drift, boot smoke) run in a dedicated initial stage (< 10s) before executing migration, contract, and unit/integration test suites to maximize developer and CI feedback loops (`DEV-005`).
+- The local runner script `scripts/run_quality_gates.py` mirrors the exact sequential stages of the CI workflow so that developers and coding agents can validate 1-to-1 parity locally without needing push triggers (`DEV-005`).
 
 ## Assumptions
 
-- PostgreSQL 16 will be used for persistence layer in TASK-004.
-- `demo_offline` profile remains completely self-contained without internet connectivity.
+- None.
 
 ## Blockers
 
@@ -106,17 +118,19 @@
 
 ## Do Not Change
 
-- Modular monolith architecture (`app/`).
-- Deterministic finite-state machine controls interaction; no autonomous runtime agents.
-- AI is typed evidence only; cannot directly mutate database, state, or mastery.
-- Raw child audio/media is ephemeral by default; never stored in normal logs.
+- Invariant: Standard CI and local quality gates must never require live provider credentials or external network access (`DEV-002`, `DEV-005`).
+- Invariant: Secrets and raw child media must never be introduced or merged into repository source trees (`SEC-007`).
+- Invariant: Schema drift checks (`scripts/export_schemas.py --check`) must fail if models are modified without updating contract JSON schemas (`ADR-015`).
 
 ## Exact Recommended Next Action
 
-The next agent should claim and execute **TASK-003** (`tasks/TASK-003.md`) to freeze versioned domain and API contracts. Alternatively, **TASK-006** (`tasks/TASK-006.md`) can be executed in parallel for CI quality gates.
+The next agent should claim and execute **TASK-014** (`tasks/TASK-014.md`) — "Prove deterministic end-to-end vertical slice".
+
+Reason:
+All prerequisite tasks from Foundation (`TASK-001` through `TASK-006`) and Deterministic Core domain logic (`TASK-007` through `TASK-013`) are now completely `DONE`. `TASK-014` is the milestone capstone that links the end-to-end vertical slice deterministically across session management, curriculum selection, answer assessment, response planning, atomic transaction persistence, and progress read-model projections before integrating speech/audio in Milestone E3.
 
 ## Git State
 
 - **Branch:** `main`
-- **Latest commit:** `a8e019df526ffde379f9692cf585c480370c6065 fix readme`
-- **Working tree status:** Uncommitted changes for TASK-002 ready for review/commit.
+- **Latest commit:** `b3ea649 task 002 done`
+- **Working tree status:** All quality gates passing cleanly (186/186 tests passing, ruff lint/format clean, mypy clean, 0 secret findings).

@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** TODO
+- **Status:** DONE
 - **Priority:** P0
 - **Epic:** E2 — Deterministic Core
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity
 - **Dependencies:** TASK-003, TASK-004, TASK-005
 - **Requirement IDs:** FR-001, FR-002, FR-010, FR-022, REL-001
 - **Architecture/ADR:** Session orchestrator/FSM; ADR-003
@@ -75,11 +75,11 @@ TOKI has no runtime agents. Only the orchestrator may advance authoritative stat
 
 ## Acceptance Criteria
 
-- [ ] Normal and named exception transitions are explicit and tested.
-- [ ] Only orchestrator has authoritative state mutation path.
-- [ ] Every active state has deadline/fallback/stop exit.
-- [ ] Retry is bounded to activity policy.
-- [ ] Property tests find no illegal terminal hang or stale transition.
+- [x] Normal and named exception transitions are explicit and tested.
+- [x] Only orchestrator has authoritative state mutation path.
+- [x] Every active state has deadline/fallback/stop exit.
+- [x] Retry is bounded to activity policy.
+- [x] Property tests find no illegal terminal hang or stale transition.
 
 ## Risks
 
@@ -90,12 +90,13 @@ TOKI has no runtime agents. Only the orchestrator may advance authoritative stat
 | Date (UTC) | Agent | Commit | Work / evidence |
 |---|---|---|---|
 | 2026-09-06 | Planning agent | — | Initial task created. |
+| 2026-09-07 | Antigravity | b3ea649 | Implemented deterministic session state machine, SessionOrchestrator persistence boundary, table-driven tests, and property reachability/bounded retry tests. All 75 tests pass. |
 
 ## Handoff Notes
 
-- Current state: Awaiting foundation dependencies.
-- Remaining work: Entire scope.
-- Exact next action: Freeze the one-activity transition table and invariant tests before writing orchestrator effects.
+- Current state: Explicit session FSM, SessionOrchestrator persistence boundary, property & table-driven tests, and transition matrix documentation completed and verified (75 tests passing, ruff & mypy clean).
+- Remaining work: None for TASK-007. Ready for protocol sequencing (TASK-008) and curriculum access (TASK-009).
+- Exact next action: Proceed to TASK-008 ("Implement protocol sequencing and resume core") or parallel task (TASK-009 / TASK-006).
 
 ## Definition of Done
 
