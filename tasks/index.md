@@ -36,12 +36,12 @@ Braces indicate work that can overlap once its own dependencies are satisfied. T
 
 | ID | Task | Epic | Priority | Status | Dependencies | Relevant Requirements | Recommended Agent Capability |
 |---|---|---|---|---|---|---|---|
-| [TASK-001](TASK-001.md) | Inventory repository and map boundaries | E1 Foundation | P0 | READY | None | DEV-001, DEV-002 | repository_inspection, architecture_review, documentation |
-| [TASK-002](TASK-002.md) | Establish reproducible runtime profiles | E1 Foundation | P0 | TODO | 001 | DEV-001, API-003, API-007, REL-006 | infrastructure, backend, testing |
-| [TASK-003](TASK-003.md) | Freeze versioned domain and API contracts | E1 Foundation | P0 | TODO | 001 | API-001, API-002, API-004â€“006, AI-002 | backend, architecture_review, testing |
-| [TASK-004](TASK-004.md) | Create PostgreSQL schema and migrations | E1 Foundation | P0 | TODO | 002,003 | DATA-001â€“005,007â€“010, DEV-003 | backend, database, testing |
-| [TASK-005](TASK-005.md) | Add provider interfaces, fakes, and simulators | E1 Foundation | P0 | TODO | 003 | AI-001â€“003,006, DEV-004 | backend, AI_ML, testing |
-| [TASK-006](TASK-006.md) | Enforce CI and repository quality gates | E1 Foundation | P0 | TODO | 001 | DEV-002, DEV-005, DEV-006 | infrastructure, testing, documentation |
+| [TASK-001](TASK-001.md) | Inventory repository and map boundaries | E1 Foundation | P0 | DONE | None | DEV-001, DEV-002 | repository_inspection, architecture_review, documentation |
+| [TASK-002](TASK-002.md) | Establish reproducible runtime profiles | E1 Foundation | P0 | DONE | 001 | DEV-001, API-003, API-007, REL-006 | infrastructure, backend, testing |
+| [TASK-003](TASK-003.md) | Freeze versioned domain and API contracts | E1 Foundation | P0 | READY | 001 | API-001, API-002, API-004–006, AI-002 | backend, architecture_review, testing |
+| [TASK-004](TASK-004.md) | Create PostgreSQL schema and migrations | E1 Foundation | P0 | TODO | 002,003 | DATA-001–005,007–010, DEV-003 | backend, database, testing |
+| [TASK-005](TASK-005.md) | Add provider interfaces, fakes, and simulators | E1 Foundation | P0 | TODO | 003 | AI-001–003,006, DEV-004 | backend, AI_ML, testing |
+| [TASK-006](TASK-006.md) | Enforce CI and repository quality gates | E1 Foundation | P0 | READY | 001 | DEV-002, DEV-005, DEV-006 | infrastructure, testing, documentation |
 | [TASK-007](TASK-007.md) | Implement deterministic session state machine | E2 Deterministic Core | P0 | TODO | 003,004,005 | FR-001, FR-002, FR-010, FR-022, REL-001 | backend, testing, architecture_review |
 | [TASK-008](TASK-008.md) | Implement protocol sequencing and resume core | E2 Deterministic Core | P0 | TODO | 003,004,007 | FR-004, FR-005, DATA-002,004, API-006, SEC-004 | backend, debugging, testing |
 | [TASK-009](TASK-009.md) | Implement approved curriculum access | E2 Deterministic Core | P0 | TODO | 003,004 | FR-006, FR-007, DATA-003 | backend, database, testing |

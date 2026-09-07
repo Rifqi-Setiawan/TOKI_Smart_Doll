@@ -2,7 +2,7 @@
 
 ## Metadata
 
-- **Status:** TODO
+- **Status:** READY
 - **Priority:** P0
 - **Epic:** E1 — Foundation
 - **Owner/Last Agent:** Unassigned

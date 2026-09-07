@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- **Status:** READY
+- **Status:** DONE
 - **Priority:** P0
 - **Epic:** E1 — Foundation
-- **Owner/Last Agent:** Unassigned
+- **Owner/Last Agent:** Antigravity (commit a8e019df526ffde379f9692cf585c480370c6065)
 - **Dependencies:** None
 - **Requirement IDs:** DEV-001, DEV-002
 - **Architecture/ADR:** Modular monolith; ADR-002; source-of-truth hierarchy
@@ -77,28 +77,29 @@ Not applicable — documentation/inspection task; completeness and reproducibili
 
 ## Acceptance Criteria
 
-- [ ] Current branch, commit, worktree, runtime, entry points, tests, migrations, CI, and start path are recorded.
-- [ ] Existing modules are mapped to every roadmap responsibility or marked missing.
-- [ ] Baseline command results distinguish pre-existing failures.
-- [ ] No production code or architecture was silently changed.
-- [ ] `tasks/index.md` path assumptions are corrected when evidence requires it.
+- [x] Current branch, commit, worktree, runtime, entry points, tests, migrations, CI, and start path are recorded.
+- [x] Existing modules are mapped to every roadmap responsibility or marked missing.
+- [x] Baseline command results distinguish pre-existing failures.
+- [x] No production code or architecture was silently changed.
+- [x] `tasks/index.md` path assumptions are corrected when evidence requires it.
 
 ## Risks
 
-- Missing a hidden path can cause duplicate modules; mitigate with `rg --files`, build metadata, and CI inspection.
+- Missing a hidden path can cause duplicate modules; mitigated with `git ls-files`, inspection of filesystem directories, and verification of target conventions in `docs/repository-map.md`.
 
 ## Work Log
 
 | Date (UTC) | Agent | Commit | Work / evidence |
 |---|---|---|---|
 | 2026-09-06 | Planning agent | — | Initial task created from approved roadmap caveat. |
+| 2026-09-07 | Antigravity | a8e019d | Inspected repository tree, git status/history, host runtime tools (Python 3.13.14, pip, missing uv/docker). Reconciled package root as `app/` and evaluation root as `evaluation/`. Reconciled `docs/decisions.md` as sole canonical ADR log. Executed baseline tool checks (`pytest`, `ruff`, `mypy`) and documented pre-existing failures. Created `docs/repository-map.md`. |
 
 ## Handoff Notes
 
-- Current state: Ready for repository inspection.
-- Remaining work: Entire scope.
-- Exact next action: Check git state, enumerate files, then run documented non-mutating baseline checks.
+- Current state: Scope complete and validated. `docs/repository-map.md` created.
+- Remaining work: None for TASK-001.
+- Exact next action: Proceed to parallel foundation tasks TASK-002 (Runtime profiles), TASK-003 (Frozen contracts), or TASK-006 (CI/quality gates).
 
 ## Definition of Done
 
-DONE requires a reviewed repository map, reproducible baseline evidence, satisfied criteria, current dashboard/handoff, and no blocker.
+DONE requires a reviewed repository map, reproducible baseline evidence, satisfied criteria, current dashboard/handoff, and no blocker. State verified and criteria satisfied.

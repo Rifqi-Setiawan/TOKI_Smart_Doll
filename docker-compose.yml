@@ -1,0 +1,58 @@
+# ==============================================================================
+# TOKI Backend — Local & Demo Docker Compose
+# One command startup: docker compose up --build
+# ==============================================================================
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: toki-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-toki}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-toki}
+      POSTGRES_DB: ${POSTGRES_DB:-toki}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-toki} -d ${POSTGRES_DB:-toki}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: toki-api
+    restart: unless-stopped
+    environment:
+      TOKI_PROFILE: ${TOKI_PROFILE:-local}
+      TOKI_ENV: ${TOKI_ENV:-development}
+      TOKI_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-toki}:${POSTGRES_PASSWORD:-toki}@postgres:5432/${POSTGRES_DB:-toki}
+      TOKI_APP_HOST: 0.0.0.0
+      TOKI_APP_PORT: 8000
+      TOKI_LOG_LEVEL: ${TOKI_LOG_LEVEL:-INFO}
+      TOKI_ASR_PROVIDER: ${TOKI_ASR_PROVIDER:-fake}
+      TOKI_TTS_PROVIDER: ${TOKI_TTS_PROVIDER:-cached}
+      TOKI_SEMANTIC_ENABLED: ${TOKI_SEMANTIC_ENABLED:-false}
+      TOKI_LLM_PARAPHRASE_ENABLED: ${TOKI_LLM_PARAPHRASE_ENABLED:-false}
+      TOKI_VISION_ENABLED: ${TOKI_VISION_ENABLED:-false}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health/live || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  postgres_data:
+    name: toki_postgres_data
