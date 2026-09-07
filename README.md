@@ -32,7 +32,7 @@ prompt → upaya anak → interpretasi → feedback → bukti skill → langkah 
 - Deployment utama di cloud dan tersedia **local demo twin** untuk menyelesaikan minimal satu aktivitas penuh saat internet/model gagal.
 - Tidak ada runtime multi-agent, LangGraph agent loop, unrestricted RAG, ChromaDB, atau microservices sebelum kompetisi.
 
-Penjelasan masalah ada di [problem.md](./problem.md), requirement yang dapat diuji di [requirements.md](./requirements.md), dan keputusan teknis di [decision.md](./decision.md).
+Dokumentasi kanonis tersedia di [problem](./docs/problem.md), [requirements](./docs/requirements.md), [architecture](./docs/architecture.md), [architecture decisions/ADR](./docs/decisions.md), [roadmap](./docs/roadmap.md), dan [evaluation](./docs/evaluation.md).
 
 ## Scope subsystem
 
@@ -59,7 +59,35 @@ Penjelasan masalah ada di [problem.md](./problem.md), requirement yang dapat diu
 
 ## Target struktur repository
 
-Struktur ini adalah kontrak tujuan Phase 0. Agent boleh menambahkan submodule, tetapi tidak boleh mengubah boundary tanpa memperbarui `decision.md`.
+### Struktur yang tersedia saat ini
+
+Repository saat ini berisi dokumentasi dan berkas orkestrasi agent berikut. Source code aplikasi, konfigurasi runtime, deployment, dan artefak evaluasi belum tersedia sebagai berkas yang dapat dijalankan.
+
+```text
+.
+├── docs/
+│   ├── architecture.md
+│   ├── decisions.md
+│   ├── evaluation.md
+│   ├── problem.md
+│   ├── requirements.md
+│   └── roadmap.md
+├── tasks/
+│   ├── index.md
+│   ├── TASK-001.md
+│   ├── TASK-002.md
+│   └── ...
+├── handoffs/
+│   ├── latest.md
+│   └── history/
+├── AGENTS.md
+├── CURRENT_TASK.md
+└── README.md
+```
+
+### Struktur target implementasi
+
+Struktur berikut adalah target Phase 0, bukan deskripsi fitur yang sudah tersedia. Agent boleh menambahkan submodule di dalam boundary yang disetujui. Perubahan arsitektur mayor harus didokumentasikan sebagai ADR di `docs/decisions.md`, mengikuti lifecycle yang sudah ditetapkan di sana, dan tidak boleh diimplementasikan secara diam-diam.
 
 ```text
 .
@@ -92,21 +120,30 @@ Struktur ini adalah kontrak tujuan Phase 0. Agent boleh menambahkan submodule, t
 │   ├── regression/
 │   └── failure_injection/
 ├── demo/
-│   ├── activity_pack/
-│   ├── fixtures/
-│   └── runbook.md
 ├── deploy/
-│   ├── cloud/
-│   └── local/
 ├── scripts/
+├── docs/
+│   ├── architecture.md
+│   ├── decisions.md
+│   ├── evaluation.md
+│   ├── problem.md
+│   ├── requirements.md
+│   └── roadmap.md
+├── tasks/
+│   ├── index.md
+│   ├── TASK-001.md
+│   ├── TASK-002.md
+│   └── ...
+├── handoffs/
+│   ├── latest.md
+│   └── history/
+├── AGENTS.md
+├── CURRENT_TASK.md
 ├── pyproject.toml
-├── docker-compose.yml
 ├── Dockerfile
+├── docker-compose.yml
 ├── .env.example
-├── README.md
-├── problem.md
-├── requirements.md
-└── decision.md
+└── README.md
 ```
 
 ## Cara menjalankan
@@ -245,7 +282,7 @@ Nama key dapat diperluas, tetapi agent harus menjaga kompatibilitas dan tidak me
 | `GET /v1/children/{id}/progress` | projection perkembangan non-klinis |
 | `GET /v1/sessions/{id}/summary` | ringkasan sesi untuk guardian |
 
-Path dapat berubah hanya melalui contract versioning dan pencatatan di `decision.md`.
+Path dapat berubah hanya melalui contract versioning dan ADR yang mengikuti lifecycle di `docs/decisions.md`; perubahan arsitektur mayor tidak boleh diimplementasikan secara diam-diam.
 
 ## Definition of done untuk setiap perubahan
 
@@ -275,11 +312,26 @@ Perubahan dianggap selesai hanya jika:
 
 ## Aturan kerja untuk agent AI
 
-- Baca `problem.md`, `requirements.md`, dan `decision.md` sebelum mengubah kode.
+Mulai dengan urutan baca berikut:
+
+1. [`AGENTS.md`](./AGENTS.md)
+2. [`CURRENT_TASK.md`](./CURRENT_TASK.md)
+3. [`handoffs/latest.md`](./handoffs/latest.md)
+4. [`tasks/index.md`](./tasks/index.md)
+5. active `tasks/TASK-XXX.md` yang ditunjuk oleh `CURRENT_TASK.md`
+
+Untuk pekerjaan yang sensitif terhadap arsitektur, baca juga:
+
+- [`docs/problem.md`](./docs/problem.md)
+- [`docs/requirements.md`](./docs/requirements.md)
+- [`docs/architecture.md`](./docs/architecture.md)
+- [`docs/decisions.md`](./docs/decisions.md)
+
+Ikuti aturan kerja lengkap di `AGENTS.md`; README ini hanya menyediakan urutan baca dan pointer ringkas.
+
 - Periksa repository aktual; repository adalah source of truth untuk apa yang sudah terimplementasi.
 - Jangan menganggap proposal sebagai spesifikasi final.
-- Jangan memperluas scope dari satu modular monolith atau menambah agent/RAG/vector DB tanpa benchmark dan decision record baru.
+- Jangan memperluas scope dari satu modular monolith atau menambah agent/RAG/vector DB tanpa benchmark dan ADR yang diterima sesuai `docs/decisions.md`.
 - Mulai dari satu perubahan kecil yang meninggalkan repository dalam kondisi berjalan.
 - Jika requirement ambigu, buat asumsi eksplisit dan pilih solusi paling sederhana yang reversible.
 - Jangan menulis “production-ready”, “aman 100%”, atau “offline-ready” tanpa bukti gate yang sesuai.
-
